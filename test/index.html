@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='GBK'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script src="../core/jdk.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<script>
+		var Class=JDK.Class,
+			Interface=JDK.Interface,
+			Util=JDK.Util;
+		var test=Class('trade/refund/view',{
+			public__hello:1,
+			public__test:function(){
+				alert(this.hello);
+			},
+			static__test2:function(){
+				alert(3);
+			}
+		});
+		var test2=Class('trade/refund/model',{
+			public__hello:2,
+			public__test:function(){
+				alert(this.hello);
+			},
+			private__test2:function(){
+				alert(this.hello);
+			},
+			protected__test3:function(){
+				alert(this.hello);
+			}
+		});
+		//var test3=new test();
+	</script>
+    <title>Ginano的github--用于测试用例放置</title>
+  </head>
+
+  <body>
+    
+  </body>
+</html>
