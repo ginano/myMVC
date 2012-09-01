@@ -12,6 +12,7 @@
 		var Class=JDK.Class,
 			Interface=JDK.Interface,
 			Util=JDK.Util;
+		
 		var test=Class('trade/refund/view',{
 			public__hello:1,
 			public__test:function(){
@@ -21,6 +22,7 @@
 				alert(3);
 			}
 		});
+		
 		var test2=Class('trade/refund/model',{
 			public__hello:2,
 			public__test:function(){
@@ -32,8 +34,13 @@
 			protected__test3:function(){
 				alert(this.hello);
 			}
+		}).extends(test).instance();
+		var test3=Class('test/good/page',{
+			hi:444,
+			pp:function(){
+				
+			}
 		});
-		//var test3=new test();
 	</script>
     <title>Ginano的github--用于测试用例放置</title>
   </head>

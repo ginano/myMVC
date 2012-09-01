@@ -121,7 +121,7 @@
                 "__type__":'namespace',
                 "namespace":{
                     "__type__":'namespace',
-                    "myclass":{
+                    "_______eg":{
                         /**
                          *该类型所在的命名空间 
                          */
@@ -152,7 +152,7 @@
                         /**
                          *继承列表 
                          */
-                        'extends':[
+                        'superClassList':[
                             'namespace/class2',
                             'namespace/class3'
                         ],
@@ -167,13 +167,15 @@
                 }
             },
             "interfaces":{
+                "__type__":'namespace',
                 "namespace":{
-                    "interface1":{
+                    "__type__":'namespace',
+                    "______eg":{
                         interfacePath:'namespace/interface1',
                         /**
                          *改class的类型 
                          */
-                        'type':'interface',
+                        '__type__':'interface',
                         //私有方法
                         'private':{
                             
@@ -197,49 +199,79 @@
         /**
          *class相关的工具类支持 
          */
-        ClassUtil={
+        DataUtil={
             /**
              *获取命名空间 
+             * @param {string} path the path of class or interface
+             * @param {string} type class/interface
              */
-            getNameSpace:function(path){
+            getNameSpace:function(path,type){
                 var patharray=path.split('\/'),
                     i,
                     len=patharray.length,
                     result={
-                        classname:'',
+                        name:'',
                         namespace:null
-                    };
+                    },
+                    type=type=='interface'?'interfaces':'classes';
+                  
                 if(len<1){
                     Util.log('please input the right path of classname!');
                     return null;
                 }else{
                     result['classname']=patharray[len-1];
-                    result['namespace']=dataSource['classes'];
+                    result['namespace']=dataSource[type];
                     for(i=0;i<len-1;i++){
                         result['namespace']=result['namespace'][patharray[i]]=result['namespace'][patharray[i]]||{
                             '__type__':'namespace'
                          };
                     }
-                    if(result['namespace'].__type__=='class'){
+                    if(result['namespace'].__type__!=='namespace'){
                         Util.log('sorry,you can not declare the class under another class!');
                         return null;
                     }
-                    return result;
+                    switch(returntype){
+                        case 'class'://直接返回改类的数据
+                            return result['namespace'][result['name']];
+                            break;
+                        default://默认返回结果列表
+                            return result;
+                            break;
+                    }
+                    
                 }
+            },
+            getClass:function(classpath){
+                var nsp=this.getNameSpace(classpath,'class');
+                return nsp['namespace'][nsp['name']];
             },
             /**
              *新增加一个Class 
              */
             addNewClass:function(obj){
-                var namesp=this.getNameSpace(obj.classPath);
+                var namesp=this.getNameSpace(obj.classPath,'class');
                 if(namesp){
                     obj.__type__='class';
-                    namesp['namespace'][namesp['classname']]=obj;
+                    namesp['namespace'][namesp['name']]=obj;
                     return true;
                 }else{
                     return false;
                 }
                 
+            },
+            getInterface:function(classpath){
+                var nsp=this.getNameSpace(classpath,'interface');
+                return nsp['namespace'][nsp['name']];
+            },
+            addNewInterface:function(obj){
+                var namesp=this.getNameSpace(obj.classPath,'interface');
+                if(namesp){
+                    obj.__type__='interface';
+                    namesp['namespace'][namesp['name']]=obj;
+                    return true;
+                }else{
+                    return false;
+                }
             }
         };
     /**
@@ -258,7 +290,7 @@
             'private':{},
             'protected':{},
             'public':{},
-            'extends':[],
+            'superClassList':[],
             'interfaceList':[]
         },
         _this=this;
@@ -267,6 +299,8 @@
             var type=p.match(/^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$/);
             //如果设置类类型
             if(type){
+                //默认public
+                type[2]=type[2]||'public';
                 if(type[1]){//static直接赋值给这个Class了
                     _this[type[3]]=value;
                     _class[type[1]][type[3]]=value;
@@ -278,7 +312,7 @@
                 return;
             }
         });
-        ClassUtil.addNewClass(_class);
+        DataUtil.addNewClass(_class);
         this.getClassPath=function(){
           return classname;  
         };
@@ -287,50 +321,85 @@
     /**
      *构造接口 
      */
-    function Interface(obj){
-        obj.isJDKInterface=true;
-        return obj;
+    function Interface(interfaceName,obj){
+        if(! (this instanceof Interface)){
+            return new Interface(obj);
+        }
+        var _interface={
+            'interfacePath':interfaceName,
+            'static':{},
+            'private':{},
+            'protected':{},
+            'public':{}
+        };
+        
+        Util.eachProp(obj,function(p,value){
+            var type=p.match(/^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$/);
+            //如果设置类类型
+            if(type){
+                type[2]=type[2]||'public';
+                if(type[1]){//static直接赋值给这个Class了
+                    _class[type[1]][type[3]]=value;
+                }else if(type[2]){
+                    _class[type[2]][type[3]]=value;
+                }
+            }else{
+                Util.log('the property "'+p+'" is not an invalid name as "public__getoffername"!');
+                return;
+            }
+        });
+        DataUtil.addInterface(_interface);
+        this.getInterfacePath=function(){
+          return interfaceName;  
+        };
     }
     //扩展Class
     Util.extends(Class.prototype,{
             /**
              * 从superClass继承属性和方法,只能继承superClass的公开static方法
              * @param {Class} superClass
-             * @param {Object} isOverride 本身是否重载superClass的方法
              */
-           extends:function(superClass,isOverride){
-               if(superClass&&superClass.isClass()){
-                   Util.extends(this,superClass,isOverride);
-                   this.superClassList.push[superClass];
+           extends:function(superClass){
+               var clsp,_class;
+               if(superClass instanceof Class){
+                   clsp=this.getClassPath();
+                   _class=DataUtil.getClass(clsp);
+                   _class.superClassList.push(superClass.getClassPath());
                }else{
                    Util.log('the '+superClass+' isn\'t an invalid Class during extends');
                }
+               return this;
            },
            /**
             *实现接口 
             * @param {Interface} superClass
             * @param {Object} methods {method:function(){}}
             */
-           implements:function(pinterface,methods){
+           implements:function(pinterface){
                if(pinterface&&pinterface.isInterface()){
                    
                }else{
                    Util.log('the '+pinterface+' isn\'t an invalid Interface during implements');
                }
+               return this;
            },
            /**
             *判断是否继承自 
             * @param {Class} superClass
             */
            isExtendsFrom:function(superClass){
-               return this.superClassList.indexOf(superClass)>-1;
+               var clsp=this.getClassPath(),
+                    _class=DataUtil.getClass(clsp);
+                return _class.superClassList.indexOf(superClass)>-1;
            },
            /**
             *判断是否实现了某个接口 
             * @param {Interface} pInterface
             */
            isImplements:function(pInterface){
-               
+               var clsp=this.getClassPath(),
+                    _class=DataUtil.getClass(clsp);
+                return _class.interfaceList.indexOf(superClass)>-1;
            },
            /**
             *实例化这个类 
