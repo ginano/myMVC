@@ -30,13 +30,14 @@
                 if(selectedProperty && (p=selectedProperty.length)){
                     while(p--){
                         item=selectedProperty[p];
-                        if(hasOwn.call(newObj,item)){
+                        //类继承的时候就不用检查了
+                        if(('function'===item.getClassName)||hasOwn.call(newObj,item)){
                             (isOverride||!originObj[item]) && (originObj[item]= newObj[item]);
                         }
                     }
                 }else{
                     for ( p in newObj) {
-                        if (hasOwn.call(newObj, p)) {
+                        if (('function'===item.getClassName)||hasOwn.call(newObj, p)) {
                             (isOverride||!originObj[p]) && (originObj[p]= newObj[p]);
                         }
                     }
@@ -130,6 +131,19 @@
                          *class的类型 
                          */
                         '__type__':'class',
+                        /**
+                         *实例化的时候系统生成的构造函数 
+                         */
+                        '__constructor__':function(){
+                            
+                        },
+                        /**
+                         *创建类的时候引用当前类 
+                         */
+                        '__class__':null,
+                        /*
+                         * 此系列方法只有对应的Class能够使用
+                         */
                         'static':{
                             
                         },
@@ -171,7 +185,7 @@
                 "namespace":{
                     "__type__":'namespace',
                     "______eg":{
-                        interfacePath:'namespace/interface1',
+                        'interfacePath':'namespace/interface1',
                         /**
                          *改class的类型 
                          */
@@ -219,7 +233,7 @@
                     Util.log('please input the right path of classname!');
                     return null;
                 }else{
-                    result['classname']=patharray[len-1];
+                    result['name']=patharray[len-1];
                     result['namespace']=dataSource[type];
                     for(i=0;i<len-1;i++){
                         result['namespace']=result['namespace'][patharray[i]]=result['namespace'][patharray[i]]||{
@@ -230,14 +244,7 @@
                         Util.log('sorry,you can not declare the class under another class!');
                         return null;
                     }
-                    switch(returntype){
-                        case 'class'://直接返回改类的数据
-                            return result['namespace'][result['name']];
-                            break;
-                        default://默认返回结果列表
-                            return result;
-                            break;
-                    }
+                    return result;
                     
                 }
             },
@@ -312,10 +319,12 @@
                 return;
             }
         });
-        DataUtil.addNewClass(_class);
+        
         this.getClassPath=function(){
           return classname;  
         };
+        _class.__class__=this;
+        DataUtil.addNewClass(_class);
     }
     
     /**
@@ -401,11 +410,65 @@
                     _class=DataUtil.getClass(clsp);
                 return _class.interfaceList.indexOf(superClass)>-1;
            },
+           getClassName:function(){
+              var clspA=this.getClassPath().split('\/');
+              return clspA[clspA.length-1];  
+           },
            /**
             *实例化这个类 
             */
            createInstance:function(){
-               
+               var clsp=this.getClassPath(),
+                   clsn=this.getClassName(),
+                   _class=DataUtil.getClass(clsp),
+                   con,
+                   i,p,len,tempclass,tempcase,Incase;
+               //如果还没有生成过构造函数，就生成构造函数
+               if(!_class.__constructor__){
+                   eval('function '+clsn+'(){};con='+clsn+';');
+                   //继承实现
+                   len=_class.superClassList.length;
+                   for(i=0;i<len;i++){
+                       tempclass=DataUtil.getClass(_class.superClassList[i]);
+                       if(tempclass){
+                            tempcase=tempclass['__class__'].createInstance();
+                            Util.extends(con.prototype,tempcase,true);
+                       }
+                      
+                   }
+                   //自身方法实现
+                  Util.extends(con.prototype,_class['public'],true);
+                  
+                   //自身方法实现
+                   Util.extends(con.prototype,_class['protected'],true);
+                   //自身方法实现
+                   for(p in _class['private']){
+                       Util.extends(con.prototype,{
+                          p:function(){
+                              if(arguments.caller instanceof con){
+                                  Util.log(p+'is a private property!');
+                                  return;
+                              }else{
+                                  if('function' === typeof _class['private'][p]){
+                                      return _class['private'][p].apply(this,arguments);
+                                  }
+                                  return _class['private'][p];
+                              }
+                          }
+                       },true);
+                   }
+                   //other property
+                   Util.extends(con.prototype,{
+                          getClassName:function(){
+                              return clsn;
+                          },
+                          getClassPath:function(){
+                              return clsp;
+                          }
+                   },true);
+               }
+               Incase=new con();
+               return Incase; 
            }
         },
         true
