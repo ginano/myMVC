@@ -31,13 +31,14 @@
                     while(p--){
                         item=selectedProperty[p];
                         //类继承的时候就不用检查了
-                        if(('function'===item.getClassName)||hasOwn.call(newObj,item)){
+                        if(('function'===typeof item.getClassName)||hasOwn.call(newObj,item)){
                             (isOverride||!originObj[item]) && (originObj[item]= newObj[item]);
                         }
                     }
                 }else{
                     for ( p in newObj) {
-                        if (('function'===item.getClassName)||hasOwn.call(newObj, p)) {
+                        item=newObj[p];
+                        if (('function'===typeof item.getClassName)||hasOwn.call(newObj, p)) {
                             (isOverride||!originObj[p]) && (originObj[p]= newObj[p]);
                         }
                     }
@@ -306,6 +307,8 @@
             var type=p.match(/^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$/);
             //如果设置类类型
             if(type){
+                //给所有的成员加一个属性便于标示
+                value.__isJDKProperty__=true;
                 //默认public
                 type[2]=type[2]||'public';
                 if(type[1]){//static直接赋值给这个Class了
@@ -422,7 +425,7 @@
                    clsn=this.getClassName(),
                    _class=DataUtil.getClass(clsp),
                    con,
-                   i,p,len,tempclass,tempcase,Incase;
+                   i,p,len,temp,tempclass,tempcase,Incase;
                //如果还没有生成过构造函数，就生成构造函数
                if(!_class.__constructor__){
                    eval('function '+clsn+'(){};con='+clsn+';');
@@ -443,19 +446,20 @@
                    Util.extends(con.prototype,_class['protected'],true);
                    //自身方法实现
                    for(p in _class['private']){
-                       Util.extends(con.prototype,{
-                          p:function(){
-                              if(arguments.caller instanceof con){
-                                  Util.log(p+'is a private property!');
-                                  return;
-                              }else{
-                                  if('function' === typeof _class['private'][p]){
-                                      return _class['private'][p].apply(this,arguments);
-                                  }
-                                  return _class['private'][p];
+                       temp={};
+                       temp[p]=function(){
+                           //如果不是自身方法调用，则无法完成
+                          if(!arguments.callee.caller.__isJDKProperty__){
+                              Util.log(p+'is a private property!');
+                              return;
+                          }else{
+                              if('function' === typeof _class['private'][p]){
+                                  return _class['private'][p].apply(this,arguments);
                               }
+                              return _class['private'][p];
                           }
-                       },true);
+                          };
+                       Util.extends(con.prototype,temp,true);
                    }
                    //other property
                    Util.extends(con.prototype,{
