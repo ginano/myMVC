@@ -13,7 +13,7 @@
              * @param {Boolean} isOverride  [option][default=true]是否覆盖已有对象
              * @param {Array} selectedProperty [option]覆盖列表
              */
-            extends:function(originObj, newObj, isOverride,selectedProperty){
+            extend:function(originObj, newObj, isOverride,selectedProperty){
                 var p,item;
                 originObj=originObj||{};
                 if(!newObj){
@@ -114,6 +114,24 @@
                     ol = this.getDom('debug-list');
                     ol.innerHTML = ol.innerHTML + '<li>' + p + '</li>';
                 }
+            },
+            /**
+             *判断是不是成员调用 
+             * @param {Object} args 传入的是某个函数内的arguments
+             */
+            checkCallerIsProperty:function(args){
+                var caller=args.callee.caller,
+                    isTrue=false;
+                //如果caller存在并且该该函数还不是属性，就需要一直向上说明还在被嵌套调用
+                while(caller){
+                    if(caller.__isJDKProperty__){
+                        isTrue=true;
+                        break;
+                    }else{
+                        caller=caller.arguments.callee.caller;
+                    }
+                }
+                return isTrue;
             }
         },
         //进行类和接口管理的数据源
@@ -366,19 +384,19 @@
         };
     }
     //扩展Class
-    Util.extends(Class.prototype,{
+    Util.extend(Class.prototype,{
             /**
              * 从superClass继承属性和方法,只能继承superClass的公开static方法
              * @param {Class} superClass
              */
-           extends:function(superClass){
+           extend:function(superClass){
                var clsp,_class;
                if(superClass instanceof Class){
                    clsp=this.getClassPath();
                    _class=DataUtil.getClass(clsp);
                    _class.superClassList.push(superClass.getClassPath());
                }else{
-                   Util.log('the '+superClass+' isn\'t an invalid Class during extends');
+                   Util.log('the '+superClass+' isn\'t an invalid Class during extend');
                }
                return this;
            },
@@ -435,22 +453,23 @@
                        tempclass=DataUtil.getClass(_class.superClassList[i]);
                        if(tempclass){
                             tempcase=tempclass['__class__'].createInstance();
-                            Util.extends(con.prototype,tempcase,true);
+                            Util.extend(con.prototype,tempcase,true);
                        }
                       
                    }
                    //自身方法实现
-                  Util.extends(con.prototype,_class['public'],true);
+                  Util.extend(con.prototype,_class['public'],true);
                   
                    //自身方法实现
-                   Util.extends(con.prototype,_class['protected'],true);
+                   Util.extend(con.prototype,_class['protected'],true);
                    //自身方法实现
                    for(p in _class['private']){
                        temp={};
                        temp[p]=function(){
+                           //alert(arguments.callee.caller.toString());
                            //如果不是自身方法调用，则无法完成
-                          if(!arguments.callee.caller.__isJDKProperty__){
-                              Util.log(p+'is a private property!');
+                          if(!Util.checkCallerIsProperty(arguments)){
+                              Util.log(p+' is a private property!');
                               return;
                           }else{
                               if('function' === typeof _class['private'][p]){
@@ -459,10 +478,10 @@
                               return _class['private'][p];
                           }
                           };
-                       Util.extends(con.prototype,temp,true);
+                       Util.extend(con.prototype,temp,true);
                    }
                    //other property
-                   Util.extends(con.prototype,{
+                   Util.extend(con.prototype,{
                           getClassName:function(){
                               return clsn;
                           },
@@ -478,7 +497,7 @@
         true
     );
     //返回到全局变量
-    Util.extends(window,{
+    Util.extend(win,{
            //对外公布为JDK
            "JDK":{
                 "Util":Util,

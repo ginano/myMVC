@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='GBK'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<script src="../core/jdk.js"></script>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-	<script>
-		var Class=JDK.Class,
+<html lang="zh-CN">
+    <head>
+        <meta charset="gbk"/>
+        <title>作用域及作用域链--javascript趣味探索系列，前端开发之Ginano</title>
+        <meta name="description" content="作用域及作用域链，javascript趣味探索系列,前端开发之Ginano"/>
+        <meta name="keywords" content="作用域及作用域链，javascript趣味探索系列，前端开发之Ginano"/>
+		<script  src="../core/jdk.js"></script>
+        <link rel="stylesheet" href="src/common.css"/>
+        <script>
+        	var Class=JDK.Class,
 			Interface=JDK.Interface,
 			Util=JDK.Util;
 		
@@ -28,24 +27,37 @@
 			public__test:function(){
 				this.test2();
 			},
+			public__test4:function(){
+				var self=this;
+				function good(){
+					self.test2();
+				}
+				good();
+			},
 			private__test2:function(){
 				alert(this.hello);
 			},
 			protected__test3:function(){
 				alert(this.hello);
 			}
-		}).extends(test).createInstance();
+		}).extend(test).createInstance();
 		var test3=Class('test/good/page',{
 			hi:444,
 			pp:function(){
 				
 			}
 		});
-	</script>
-    <title>Ginano的github--用于测试用例放置</title>
-  </head>
-
-  <body>
-    
-  </body>
+		test2.test();
+		test2.test4();
+		test2.test2();
+		
+		function ddd(){
+			test2.test2();
+		}
+		ddd();
+        </script>
+    </head>
+    <body>
+        
+    </body>
 </html>
