@@ -66,7 +66,7 @@
              */
             private__excuteit:function(){
                var args=this.getRequireList(this.requiredList);
-               this.exprots=this.factory.apply(this,requireList,args);
+               this.exports=this.factory.apply(this,args);
             },
             /**
              *获取所有依赖的模块列表 
@@ -95,7 +95,7 @@
                 if(!this.exports){
                     this.excuteit();
                 }
-                return this.exports
+                return this.exports;
             },
             
             public__requiredList:[],

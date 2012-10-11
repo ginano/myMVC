@@ -466,21 +466,23 @@
                    //自身方法实现
                    Util.extend(con.prototype,_class['protected'],true);
                    //自身方法实现
-                   for(p in _class['private']){
+                   for(_p in _class['private']){
                        temp={};
-                       temp[p]=function(){
+                       temp[_p]=(function(p){
                            //alert(arguments.callee.caller.toString());
                            //如果不是自身方法调用，则无法完成
-                          if(!Util.checkCallerIsProperty(arguments,'__isJDKProperty__')){
-                              Util.log(p+' is a private property!');
-                              return;
-                          }else{
-                              if('function' === typeof _class['private'][p]){
-                                  return _class['private'][p].apply(this,arguments);
+                           return function(){
+                              if(!Util.checkCallerIsProperty(arguments,'__isJDKProperty__')){
+                                  Util.log(p+' is a private property!');
+                                  return;
+                              }else{
+                                  if('function' === typeof _class['private'][p]){
+                                      return _class['private'][p].apply(this,arguments);
+                                  }
+                                  return _class['private'][p];
                               }
-                              return _class['private'][p];
-                          }
-                          };
+                           };
+                       })(_p);
                        Util.extend(con.prototype,temp,true);
                    }
                    //other property
