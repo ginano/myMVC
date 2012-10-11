@@ -38,8 +38,8 @@
                 }else{
                     for ( p in newObj) {
                         item=newObj[p];
-                        if (('function'===typeof item.getClassName)||hasOwn.call(newObj, p)) {
-                            (isOverride||!originObj[p]) && (originObj[p]= newObj[p]);
+                        if ((item && 'function'===typeof item.getClassName)||hasOwn.call(newObj, p)) {
+                            (isOverride||!originObj[p]) && (originObj[p]= item);
                         }
                     }
                 }
@@ -118,13 +118,14 @@
             /**
              *判断是不是成员调用 
              * @param {Object} args 传入的是某个函数内的arguments
+             * @param {String} byWhat 通过什么成员名来校验？
              */
-            checkCallerIsProperty:function(args){
+            checkCallerIsProperty:function(args,byWhat){
                 var caller=args.callee.caller,
                     isTrue=false;
                 //如果caller存在并且该该函数还不是属性，就需要一直向上说明还在被嵌套调用
                 while(caller){
-                    if(caller.__isJDKProperty__){
+                    if(caller[byWhat]){
                         isTrue=true;
                         break;
                     }else{
@@ -325,8 +326,10 @@
             var type=p.match(/^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$/);
             //如果设置类类型
             if(type){
-                //给所有的成员加一个属性便于标示
-                value.__isJDKProperty__=true;
+                //给所有的函数成员加一个属性便于标示
+                if(typeof value==='function'){
+                    value.__isJDKProperty__=true;
+                }
                 //默认public
                 type[2]=type[2]||'public';
                 if(type[1]){//static直接赋值给这个Class了
@@ -468,7 +471,7 @@
                        temp[p]=function(){
                            //alert(arguments.callee.caller.toString());
                            //如果不是自身方法调用，则无法完成
-                          if(!Util.checkCallerIsProperty(arguments)){
+                          if(!Util.checkCallerIsProperty(arguments,'__isJDKProperty__')){
                               Util.log(p+' is a private property!');
                               return;
                           }else{
@@ -491,6 +494,7 @@
                    },true);
                }
                Incase=new con();
+               Incase.init&&Incase.init.apply(Incase,arguments);
                return Incase; 
            }
         },
