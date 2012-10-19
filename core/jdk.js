@@ -47,6 +47,21 @@
                 
             },
             /**
+             *深度copy一个对象 
+             */
+            copyObject:function(obj){
+                var clone={},
+                    type=typeof obj;
+                switch(type){
+                    case 'string':
+                    case 'number':
+                    case 'boolean':
+                    case 'undefined':
+                        return obj;
+                        break;
+                }
+            },
+            /**
              *遍历所有的成员 
              */
             eachProp:function(obj,callback){
@@ -307,6 +322,10 @@
      * @param {Object} obj {prop1:null,prop2__static:null} 如果是静态属性后面请添加__static作为标示符
      */
     function Class(classname,obj){
+        if(typeof classname !=='string'){
+            Util.log(classname+' is not an invalid classname like "modules/view"!');
+            return;
+        }
         //需要覆盖上层的Class
         if(!(this instanceof Class)){
             return new Class(classname,obj);
@@ -339,7 +358,7 @@
                     _class[type[2]][type[3]]=value;
                 }
             }else{
-                Util.log('the property "'+p+'" is not an invalid name as "public__getoffername"!');
+                Util.log('the property "'+p+'" is not an valid name like "public__getoffername"!');
                 return;
             }
         });
@@ -440,51 +459,80 @@
            },
            /**
             *实例化这个类 
+            * 属性
             */
            createInstance:function(){
                var clsp=this.getClassPath(),
                    clsn=this.getClassName(),
                    _class=DataUtil.getClass(clsp),
-                   con,
-                   i,p,len,temp,tempclass,tempcase,Incase;
+                   con,properties={},functions={},
+                   i,p,len,temp={},tempclass,tempcase,Incase;
                //如果还没有生成过构造函数，就生成构造函数
+               //构造函数只生成公共的函数，属性值应当附加到实例上面
                if(!_class.__constructor__){
                    eval('function '+clsn+'(){};con='+clsn+';');
-                   //继承实现
+                   //继承实现,只能继承public和protected
                    len=_class.superClassList.length;
                    for(i=0;i<len;i++){
                        tempclass=DataUtil.getClass(_class.superClassList[i]);
                        if(tempclass){
                             tempcase=tempclass['__class__'].createInstance();
-                            Util.extend(con.prototype,tempcase,true);
+                            for(_p in tempcase['public']){
+                                if('function'===typeof tempcase['public'][_p]){
+                                    functions[_p]=tempcase['public'][_p];
+                                }else{
+                                    properties[_p]=tempcase['public'][_p];
+                                }
+                            }
+                            for(_p in tempcase['protected']){
+                                if('function'===typeof tempcase['protected'][_p]){
+                                     functions[_p]=tempcase['protected'][_p];
+                                }else{
+                                    properties[_p]=tempcase['protected'][_p];
+                                }
+                            }
                        }
                       
                    }
+                  //只对function进行处理 
+                  for(_p in _class['public']){
+                      if(typeof _class['public'][_p]==='function'){
+                         functions[_p]=_class['public'][_p];
+                      }else{
+                          properties[_p]=_class['public'][_p];
+                      }
+                  } 
                    //自身方法实现
-                  Util.extend(con.prototype,_class['public'],true);
-                  
+                  //Util.extend(con.prototype,_class['public'],true);
+                  //只对function进行处理 
+                  for(_p in _class['protected']){
+                      if(typeof _class['protected'][_p]==='function'){
+                          functions[_p]=_class['protected'][_p];
+                      }else{
+                          properties[_p]=_class['protected'][_p];
+                      }
+                  } 
                    //自身方法实现
-                   Util.extend(con.prototype,_class['protected'],true);
+                   //Util.extend(con.prototype,_class['protected'],true);
                    //自身方法实现
                    for(_p in _class['private']){
-                       temp={};
-                       temp[_p]=(function(p){
-                           //alert(arguments.callee.caller.toString());
-                           //如果不是自身方法调用，则无法完成
-                           return function(){
-                              if(!Util.checkCallerIsProperty(arguments,'__isJDKProperty__')){
-                                  Util.log(p+' is a private property!');
-                                  return;
-                              }else{
-                                  if('function' === typeof _class['private'][p]){
+                       if(typeof _class['private'][_p]==='function'){
+                           functions[_p]=(function(p){
+                               //如果不是自身方法调用，则无法完成
+                               return function(){
+                                  if(!Util.checkCallerIsProperty(arguments,'__isJDKProperty__')){
+                                      Util.log(p+' is a private property!');
+                                      return;
+                                  }else{
                                       return _class['private'][p].apply(this,arguments);
                                   }
-                                  return _class['private'][p];
-                              }
-                           };
-                       })(_p);
-                       Util.extend(con.prototype,temp,true);
+                               };
+                           })(_p); 
+                      }else{
+                          properties[_p]=_class['private'][_p];
+                      }
                    }
+                   Util.extend(con.prototype,functions,true);
                    //other property
                    Util.extend(con.prototype,{
                           getClassName:function(){
@@ -494,8 +542,17 @@
                               return clsp;
                           }
                    },true);
+                   _class.__properties__=properties;
+                   _class.__constructor__=con;
+               }else{
+                   con=_class.__constructor__;
                }
                Incase=new con();
+               //扩展属性，这个必须是实例独有，不能通过prototype来完成，这样会形成相互干扰
+               //public
+               
+               //只对function进行处理 
+               Util.extend(Incase,_class.__properties__,true);
                Incase.init&&Incase.init.apply(Incase,arguments);
                return Incase; 
            }

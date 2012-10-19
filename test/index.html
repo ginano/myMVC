@@ -5,19 +5,34 @@
         <title>作用域及作用域链--javascript趣味探索系列，前端开发之Ginano</title>
         <meta name="description" content="作用域及作用域链，javascript趣味探索系列,前端开发之Ginano"/>
         <meta name="keywords" content="作用域及作用域链，javascript趣味探索系列，前端开发之Ginano"/>
-		<script  src="../core/jdk.js"></script>
-		<script  src="../commonJS/module.js"></script>
+		<script  src="../merge.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
         <script>
-        define('test',[],function(){
+        define('test',['modules/jquery'],function($){
         	return {
         		hello:function(){
         			alert(12);
         		}
         	}
         });
-        define(['test'],function(test){
+        define(['test','modules/jquery','modules/notify'],function(test,$,Notify){
         	test.hello();
+        	var temp=	Notify.create();
+        	temp.attach('sayhello',function(what){
+        		alert(what);
+        	});
+        	temp.attach('sayhello',function(what){
+        		alert(what+'2');
+        	});
+        	temp.notify('sayhello','hehe');
+        	//temp.dettach('sayhello');
+        	
+        	
+        	var temp2=Notify.create();
+        	temp2.attach('sayhello',function(what){
+        		alert('2'+what);
+        	});
+        	temp2.notify('sayhello','hehe222');
         }).excute();
         </script>
     </head>
