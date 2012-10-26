@@ -32,14 +32,14 @@
                         item=selectedProperty[p];
                         //类继承的时候就不用检查了
                         if(('function'===typeof item.getClassName)||hasOwn.call(newObj,item)){
-                            (isOverride||!originObj[item]) && (originObj[item]= newObj[item]);
+                            (isOverride||!originObj[item]) && (originObj[item]= this.cloneObject(newObj[item]));
                         }
                     }
                 }else{
                     for ( p in newObj) {
                         item=newObj[p];
                         if ((item && 'function'===typeof item.getClassName)||hasOwn.call(newObj, p)) {
-                            (isOverride||!originObj[p]) && (originObj[p]= item);
+                            (isOverride||!originObj[p]) && (originObj[p]= this.cloneObject(item));
                         }
                     }
                 }
@@ -48,18 +48,57 @@
             },
             /**
              *深度copy一个对象 
+             * @param {Object} o
+             * @param {Boolean} isCloneFunction 是否复制函数
+             * @param {Boolean} isClonePrototype 是否复制函数的扩展属性
              */
-            copyObject:function(obj){
-                var clone={},
-                    type=typeof obj;
-                switch(type){
-                    case 'string':
-                    case 'number':
-                    case 'boolean':
-                    case 'undefined':
-                        return obj;
-                        break;
-                }
+            cloneObject:function(o,isCloneFunction,isClonePrototype){
+			    function copyObject(obj,isCopyFunction,isCopyPrototype){
+			    	var objClone,
+				    	con,
+				    	prop;
+				    if(obj===undefined||obj===null){
+				    	return objClone=obj;
+				    }
+				    con=obj.constructor;
+				    if (con == Object){
+				        objClone = new con(); 
+				    }else if(con==Function){
+				    	if(isCopyFunction){
+				    		objClone=eval('['+obj.toString()+']')[0];
+				    	}else{
+				    		return objClone=obj;
+				    	}
+				    }else{
+				        objClone = new con(obj.valueOf()); 
+				    }
+				    for(var key in obj){
+				        if ( objClone[key] != obj[key] ){ 
+				            if ( typeof(obj[key]) == 'object' ){ 
+				                objClone[key] = copyObject(obj[key],isCopyFunction);
+				            }else{
+				                objClone[key] = obj[key];
+				            }
+				        }
+				    }
+				    /**
+				     *当且仅当是深度复制函数，并且需要复制当且的扩展属性的时候才执行 
+				     */
+				    if(con==Function&&isCopyFunction&&isCopyPrototype){
+				    	prop=obj.prototype;
+				    	for(var key in prop){
+				            if ( typeof(prop[key]) == 'object' ){ 
+				                objClone.prototype[key] = copyObject(prop[key],isCopyFunction,isCopyPrototype);
+				            }else{
+				                objClone.prototype[key] = prop[key];
+				            }
+					    }
+				    }
+				    objClone.toString = obj.toString;
+				    objClone.valueOf = obj.valueOf;
+				    return objClone; 
+			    }
+			    return copyObject(o,isCloneFunction,isClonePrototype);
             },
             /**
              *遍历所有的成员 
