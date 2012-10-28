@@ -28,7 +28,7 @@
                             req=id;
                             id='';
                         }else{
-                            JDK.Util.log('module '+id+' init faild,becaseof the invalid argument:"req".');
+                            JDK.Util.log('module '+id+' init faild, becaseof the invalid arguments:"req".');
                             return;
                         }
                         break;
@@ -38,7 +38,7 @@
                         id='';
                         break;
                     default:
-                        JDK.Util.log('module '+id+' init faild,becaseof the invalid arguments.');
+                        JDK.Util.log('module '+id+' init faild, becaseof the invalid arguments.');
                         return;
                         break;
                 }
