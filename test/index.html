@@ -2,12 +2,17 @@
 <html lang="zh-CN">
     <head>
         <meta charset="gbk"/>
-        <title>作用域及作用域链--javascript趣味探索系列，前端开发之Ginano</title>
-        <meta name="description" content="作用域及作用域链，javascript趣味探索系列,前端开发之Ginano"/>
-        <meta name="keywords" content="作用域及作用域链，javascript趣味探索系列，前端开发之Ginano"/>
+        <title>锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷--javascript趣味探锟斤拷系锟叫ｏ拷前锟剿匡拷锟斤拷之Ginano</title>
+        <meta name="description" content="锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷javascript趣味探锟斤拷系锟斤拷,前锟剿匡拷锟斤拷之Ginano"/>
+        <meta name="keywords" content="锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷javascript趣味探锟斤拷系锟叫ｏ拷前锟剿匡拷锟斤拷之Ginano"/>
 		<script  src="../merge.js"></script>
         <link rel="stylesheet" href="src/common.css"/>
+        
+    </head>
+    <body>
+        <a id="test" href="#">test</a>
         <script>
+       /*
         define('test',['modules/jquery'],function($){
         	return {
         		hello:function(){
@@ -34,9 +39,54 @@
         	});
         	temp2.notify('sayhello','hehe222');
         }).excute();
+        */
+        define('test/view',['modules/class','modules/jquery'],function(Class,$){
+        	var view=Class('view',{
+        		public__init:function(controller,notify){
+		    		this.notify=notify;
+		    		this.controller=controller;
+		    		this.attach();
+		    		this.bind();
+		    	},
+		    	public__attach:function(){
+		    		this.notify.attach('test',function(d){
+		    			alert(d);
+		    		});
+		    	},
+		    	public__bind:function(){
+		    		var _this=this;
+		    		$('#test').bind('click',function(e){
+		    			e .preventDefault();
+		    			_this.controller.updateValue(555);
+		    		});
+		    	}
+        	});
+        	return view;
+        });
+         define('test/controller',['modules/class'],function(Class){
+        	var view=Class('controller',{
+        		public__init:function(model,notify){
+		    		this.model=model;
+		    		this.notify=notify;
+		    	},
+        		public__updateValue:function(test){
+        			this.model.update(test);
+        			this.notify.notify('test',test);
+        		}
+        	});
+        	return view;
+        });
+         define('test/model',['modules/class'],function(Class){
+        	var model=Class('model',{
+        		public__update:function(value){
+        			this.value=value;
+        		}
+        	});
+        	return model;
+        });
+        define(['modules/mvc','test/view','test/controller','test/model'],function(MVC,View,Controller,Model){
+        	MVC.createInstance(View,Controller,Model);
+        }).excute();
         </script>
-    </head>
-    <body>
-        
     </body>
 </html>

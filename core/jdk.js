@@ -515,19 +515,19 @@
                    for(i=0;i<len;i++){
                        tempclass=DataUtil.getClass(_class.superClassList[i]);
                        if(tempclass){
-                            tempcase=tempclass['__class__'].createInstance();
-                            for(_p in tempcase['public']){
-                                if('function'===typeof tempcase['public'][_p]){
-                                    functions[_p]=tempcase['public'][_p];
+                            //tempcase=tempclass['__class__'].createInstance();
+                            for(_p in tempclass['public']){
+                                if('function'===typeof tempclass['public'][_p]){
+                                    functions[_p]=tempclass['public'][_p];
                                 }else{
-                                    properties[_p]=tempcase['public'][_p];
+                                    properties[_p]=tempclass['public'][_p];
                                 }
                             }
-                            for(_p in tempcase['protected']){
-                                if('function'===typeof tempcase['protected'][_p]){
-                                     functions[_p]=tempcase['protected'][_p];
+                            for(_p in tempclass['protected']){
+                                if('function'===typeof tempclass['protected'][_p]){
+                                     functions[_p]=tempclass['protected'][_p];
                                 }else{
-                                    properties[_p]=tempcase['protected'][_p];
+                                    properties[_p]=tempclass['protected'][_p];
                                 }
                             }
                        }

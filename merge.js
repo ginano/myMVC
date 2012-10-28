@@ -2,7 +2,7 @@
  *@author ginano
  *@date 2012-10-18
  *@website www.ginano.net
- *@fileoverview  Õû¸ö¿ò¼ÜÐèÒªÒýÈëµÄÎÄ¼þ¼¯ºÏ
+ *@fileoverview  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 window.ImportJavaScript={
     url:function(url) {
@@ -16,3 +16,8 @@ ImportJavaScript.url('../commonJS/module.js');
 ImportJavaScript.url('../modules/jquery.js');
 ImportJavaScript.url('../modules/class.js');
 ImportJavaScript.url('../modules/notify.js');
+//mvc js
+ImportJavaScript.url('../modules/mvc.view.js');
+ImportJavaScript.url('../modules/mvc.controller.js');
+ImportJavaScript.url('../modules/mvc.model.js');
+ImportJavaScript.url('../modules/mvc.js');
