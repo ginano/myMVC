@@ -1,0 +1,695 @@
+{
+    "project": {
+        "name": "myMVC",
+        "description": "try to imitate the mvc design pattern of java",
+        "version": "0.0.1",
+        "url": "https://github.com/ginano/myMVC"
+    },
+    "files": {
+        "commonJS\\module.js": {
+            "name": "commonJS\\module.js",
+            "modules": {},
+            "classes": {
+                "commonjs.Module": 1,
+                "commonjs.window": 1
+            },
+            "fors": {
+                "commonjs.window": 1
+            },
+            "namespaces": {
+                "commonjs": 1
+            }
+        },
+        "core\\jQuery.source.js": {
+            "name": "core\\jQuery.source.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "core\\jdk.js": {
+            "name": "core\\jdk.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "modules\\class.js": {
+            "name": "modules\\class.js",
+            "modules": {
+                "modules/class": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "modules\\mvc.js": {
+            "name": "modules\\mvc.js",
+            "modules": {
+                "modules/mvc": 1
+            },
+            "classes": {
+                "modules.mymvc.MVC": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            }
+        },
+        "merge.js": {
+            "name": "merge.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "modules/class": {
+            "name": "modules/class",
+            "submodules": {},
+            "classes": {
+                "commonjs.Module": 1,
+                "commonjs.window": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "commonJS\\module.js",
+            "line": 153,
+            "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class"
+        },
+        "modules/mvc": {
+            "name": "modules/mvc",
+            "submodules": {},
+            "classes": {
+                "modules.mymvc.MVC": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            },
+            "tag": "module",
+            "file": "modules\\mvc.js",
+            "line": 16,
+            "description": "it will return the Class of MVC."
+        }
+    },
+    "classes": {
+        "commonjs.Module": {
+            "name": "commonjs.Module",
+            "shortname": "commonjs.Module",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/class",
+            "namespace": "commonjs",
+            "file": "commonJS\\module.js",
+            "line": 5,
+            "description": "the module class for the commonjs to manage the modules for the application",
+            "is_constructor": 1
+        },
+        "commonjs.window": {
+            "name": "commonjs.window",
+            "shortname": "window",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/class",
+            "namespace": "commonjs",
+            "file": "commonJS\\module.js",
+            "line": 153,
+            "description": "this is an visual Class reference to global scope of window",
+            "is_constructor": 1
+        },
+        "modules.mymvc.MVC": {
+            "name": "modules.mymvc.MVC",
+            "shortname": "modules.mymvc.MVC",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/mvc",
+            "namespace": "modules.mymvc",
+            "file": "modules\\mvc.js",
+            "line": 16,
+            "description": "the  class for to implement the MVC design pattern",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "commonJS\\module.js",
+            "line": 12,
+            "description": "the initial entry for this Module,and it will be excuted immediately when the instance is created! \nThe params are from the function of Module.createInstace(id,req,factory);",
+            "itemtype": "method",
+            "name": "init",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "the module name for the instance, it should be unique and the namspace is expected like 'mywork/module1'",
+                    "type": "String"
+                },
+                {
+                    "name": "req",
+                    "description": "the required modules for this module",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "factory",
+                    "description": "the factory function for the module",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "an instance of Module",
+                "type": "Object"
+            },
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 59,
+            "description": "the unique id for the module",
+            "itemtype": "property",
+            "name": "id",
+            "access": "public",
+            "tagname": "",
+            "type": "String",
+            "default": "''",
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 67,
+            "description": "excute the module.\nbecause the module just was registered in module management center before excuting it.",
+            "itemtype": "method",
+            "name": "excute",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type=''",
+                    "description": "the slogan to indicate when to excute this module, the value has 2 types: '~'/default.\n     '~' will excute it in document.ready; and the others will be excuted right now!",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "the module",
+                "type": "Object"
+            },
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 87,
+            "description": "the internal implement for the method of excute.\nit will get all the required modules, and excute the facotry of this module.\nand store the result to the property exprots",
+            "itemtype": "method",
+            "name": "excuteit",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "the module",
+                "type": "Object"
+            },
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 100,
+            "description": "it will get all the required modules .",
+            "itemtype": "method",
+            "name": "getRequireList",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "list",
+                    "description": "the required modules' name of this instance",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "the array of all the required modules",
+                "type": "Array"
+            },
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 123,
+            "description": "it will get the export of the modules . \nif the factory hasn't been excuted, it will execute the factory of this module by call this.excuteit().",
+            "itemtype": "method",
+            "name": "getExports",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "the exports of this module",
+                "type": "Object"
+            },
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 136,
+            "description": "store the names of all the required modules",
+            "itemtype": "property",
+            "name": "requiredList",
+            "access": "public",
+            "tagname": "",
+            "type": "Array",
+            "default": "[]",
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 144,
+            "description": "store the exports of this module",
+            "itemtype": "property",
+            "name": "exports",
+            "access": "public",
+            "tagname": "",
+            "type": "object",
+            "default": "null",
+            "class": "commonjs.Module",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "commonJS\\module.js",
+            "line": 159,
+            "description": "define a new module so that you don't care how to create an instance of module.\nand the method was exposed to global scope",
+            "itemtype": "method",
+            "name": "define",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "the module name for the instance, it should be unique and the namspace is expected like 'mywork/module1'",
+                    "type": "String"
+                },
+                {
+                    "name": "req",
+                    "description": "the required modules for this module",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "factory",
+                    "description": "the factory function for the module",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "an instance of Module",
+                "type": "Object"
+            },
+            "class": "commonjs.window",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jQuery.source.js",
+            "line": 3987,
+            "description": "Utility function for retrieving the text value of an array of DOM nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "",
+                    "type": "Array|Element"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 4,
+            "description": "���� ���еĳ�Ա",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 9,
+            "description": "��չ����Ԫ��",
+            "params": [
+                {
+                    "name": "originObj",
+                    "description": "ԭʼ����",
+                    "type": "Object"
+                },
+                {
+                    "name": "newObj",
+                    "description": "�¶���",
+                    "type": "Object"
+                },
+                {
+                    "name": "isOverride",
+                    "description": "[option][default=true]�Ƿ񸲸����ж���",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "selectedProperty",
+                    "description": "[option]�����б�",
+                    "type": "Array"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 49,
+            "description": "����copyһ������",
+            "params": [
+                {
+                    "name": "o",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "isCloneFunction",
+                    "description": "�Ƿ����ƺ���",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "isClonePrototype",
+                    "description": "�Ƿ����ƺ�������չ����",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 84,
+            "description": "���ҽ��������ȸ��ƺ�����������Ҫ���Ƶ��ҵ���չ���Ե�ʱ����ִ��",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 103,
+            "description": "�������еĳ�Ա",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 125,
+            "description": "��ȡԪ��byid",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 134,
+            "description": "����һ��Ԫ��",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 172,
+            "description": "�ж��ǲ��ǳ�Ա����",
+            "params": [
+                {
+                    "name": "args",
+                    "description": "��������ĳ�������ڵ�arguments",
+                    "type": "Object"
+                },
+                {
+                    "name": "byWhat",
+                    "description": "ͨ��ʲô��Ա����У�飿",
+                    "type": "String"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 200,
+            "description": "���������ڵ������ռ�",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 204,
+            "description": "class������",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 208,
+            "description": "ʵ������ʱ��ϵͳ���ɵĹ��캯��",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 214,
+            "description": "��������ʱ�����õ�ǰ��",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 228,
+            "description": "�ܱ����ķ���",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 234,
+            "description": "��������",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 240,
+            "description": "�̳��б�",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 247,
+            "description": "ʵ�ֵĽӿ��б�",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 263,
+            "description": "��class������",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 271,
+            "description": "�ܱ����ķ���",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 277,
+            "description": "��������",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 287,
+            "description": "class���صĹ�����֧��",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 291,
+            "description": "��ȡ�����ռ�",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "the path of class or interface",
+                    "type": "String"
+                },
+                {
+                    "name": "type",
+                    "description": "class/interface",
+                    "type": "String"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 329,
+            "description": "������һ��Class",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 358,
+            "description": "�๹����  ��Ŀǰ��֧��__static���ͣ�������������������",
+            "params": [
+                {
+                    "name": "classname",
+                    "description": "eg:'trade/view'��ʾ������trade�����ռ��µ�view��",
+                    "type": "String"
+                },
+                {
+                    "name": "obj",
+                    "description": "{prop1:null,prop2__static:null} �����Ǿ�̬���Ժ���������__static��Ϊ��ʾ��",
+                    "type": "Object"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 412,
+            "description": "�����ӿ�",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 449,
+            "description": "��superClass�̳����Ժͷ���,ֻ�ܼ̳�superClass�Ĺ���static����",
+            "params": [
+                {
+                    "name": "superClass",
+                    "description": "",
+                    "type": "Class"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 464,
+            "description": "ʵ�ֽӿ�",
+            "params": [
+                {
+                    "name": "superClass",
+                    "description": "",
+                    "type": "Interface"
+                },
+                {
+                    "name": "methods",
+                    "description": "{method:function(){}}",
+                    "type": "Object"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 477,
+            "description": "�ж��Ƿ��̳���",
+            "params": [
+                {
+                    "name": "superClass",
+                    "description": "",
+                    "type": "Class"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 486,
+            "description": "�ж��Ƿ�ʵ����ĳ���ӿ�",
+            "params": [
+                {
+                    "name": "pInterface",
+                    "description": "",
+                    "type": "Interface"
+                }
+            ],
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "core\\jdk.js",
+            "line": 499,
+            "description": "ʵ���������� \n ����",
+            "class": "modules.mymvc.MVC",
+            "namespace": "commonjs"
+        },
+        {
+            "file": "modules\\mvc.js",
+            "line": 23,
+            "description": "the initial entry for a new MVC instance,and it will inital the model/view/controller/notify when the instance is created!",
+            "itemtype": "method",
+            "name": "init",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "View"
+                },
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "Controller"
+                },
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model"
+                }
+            ],
+            "return": {
+                "description": "an instance of MVC",
+                "type": "MVC"
+            },
+            "class": "modules.mymvc.MVC",
+            "module": "modules/mvc",
+            "namespace": "modules.mymvc"
+        },
+        {
+            "file": "merge.js",
+            "line": 1,
+            "author": "ginano",
+            "date": "2012-10-18",
+            "website": "www.ginano.net",
+            "fileoverview": "��������Ҫ������ļ�����",
+            "class": "",
+            "module": "modules/mvc",
+            "namespace": "modules.mymvc"
+        }
+    ]
+}

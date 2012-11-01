@@ -1,0 +1,9 @@
+{
+    "name": "myMVC",
+    "description": "try to imitate the mvc design pattern of java",
+    "version": "0.0.1",
+    "url": "https://github.com/ginano/myMVC",
+    "options": {
+         "outdir": "document"
+    }
+}
