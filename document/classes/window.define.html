@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>commonjs.window - myMVC</title>
+    <title>window.define - myMVC</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.7.0&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -43,9 +43,15 @@
             
                 <li><a href="..&#x2F;classes/commonjs.Module.html">commonjs.Module</a></li>
             
-                <li><a href="..&#x2F;classes/commonjs.window.html">commonjs.window</a></li>
+                <li><a href="..&#x2F;classes/modules.mymvc.Controller.html">modules.mymvc.Controller</a></li>
+            
+                <li><a href="..&#x2F;classes/modules.mymvc.Model.html">modules.mymvc.Model</a></li>
             
                 <li><a href="..&#x2F;classes/modules.mymvc.MVC.html">modules.mymvc.MVC</a></li>
+            
+                <li><a href="..&#x2F;classes/modules.mymvc.View.html">modules.mymvc.View</a></li>
+            
+                <li><a href="..&#x2F;classes/window.define.html">window.define</a></li>
             
             </ul>
 
@@ -53,7 +59,15 @@
             
                 <li><a href="..&#x2F;modules/modules_class.html">modules&#x2F;class</a></li>
             
-                <li><a href="..&#x2F;modules/modules_mvc.html">modules&#x2F;mvc</a></li>
+                <li><a href="..&#x2F;modules/modules_mymvc.html">modules&#x2F;mymvc</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_controllers.html">modules&#x2F;mymvc&#x2F;controllers</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_model.html">modules&#x2F;mymvc&#x2F;model</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_view.html">modules&#x2F;mymvc&#x2F;view</a></li>
+            
+                <li><a href="..&#x2F;modules/window.html">window</a></li>
             
             </ul>
         </div>
@@ -90,7 +104,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>commonjs.window Class</h1>
+                        <h1>window.define Class</h1>
 <div class="box meta">
     
 
@@ -98,13 +112,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;commonJS_module.js.html#l153"><code>commonJS\module.js:153</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;commonJS_module.js.html#l161"><code>commonJS\module.js:161</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/modules_class.html">modules/class</a>
+            Module: <a href="../modules/window.html">window</a>
         
     
 
@@ -114,115 +128,15 @@
 
 
 <div class="box intro">
-    <p>this is an visual Class reference to global scope of window</p>
+    <p>define a new module so that you don't care how to create an instance of module.
+and the method was exposed to global scope</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_commonjs.window" class="method item">
-    <h3 class="name"><code>commonjs.window</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;commonJS_module.js.html#l153"><code>commonJS\module.js:153</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-    </div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method public">
-                                <a href="#method_define">define</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-
-            
-        </div>
-
-        
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_define" class="method item public">
-    <h3 class="name"><code>define</code></h3>
+        <div id="method_window.define" class="method item">
+    <h3 class="name"><code>window.define</code></h3>
 
     
         <div class="args">
@@ -252,18 +166,18 @@
 
     
         <span class="returns-inline">
-            <span class="type">Object</span>
+            <span class="type">Module</span>
         </span>
     
 
     
 
     
-        <span class="flag public">public</span>
-    
 
     
 
+    
+        <span class="flag static">static</span>
     
 
     
@@ -281,7 +195,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;commonJS_module.js.html#l159"><code>commonJS\module.js:159</code></a>
+        <a href="..&#x2F;files&#x2F;commonJS_module.js.html#l161"><code>commonJS\module.js:161</code></a>
         
         </p>
 
@@ -292,8 +206,7 @@
     </div>
 
     <div class="description">
-        <p>define a new module so that you don't care how to create an instance of module.
-and the method was exposed to global scope</p>
+        
     </div>
 
     
@@ -359,7 +272,7 @@ and the method was exposed to global scope</p>
             <div class="returns-description">
                 
                     
-                        <span class="type">Object</span>:
+                        <span class="type">Module</span>:
                     
                     an instance of Module
                 
@@ -370,8 +283,32 @@ and the method was exposed to global scope</p>
     
 </div>
 
-                
-            </div>
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+
+            
+
+            
+
+            
+        </div>
+
         
 
         

@@ -1,4 +1,10 @@
-//reference core/jdk.js
+/**
+ * this is an visual Class reference to global scope of window.
+ * all the properties and functions belong to window or other code exposed to global scope will be classed to this module.
+ * and all the properties could be for the static class named window, such as window.define
+ * @module window
+ * @main
+ */
 (function(JDK,win,undefined){
     var moduleList={};
         moduleAnonymousList=[];
@@ -149,25 +155,22 @@
                 @default null
              **/
             public__exports:null
-        }),
-        /**
-         * this is an visual Class reference to global scope of window
-         * @class window
-         * @constructor
-         */
-        
+        });
+   
+       
         /**
          define a new module so that you don't care how to create an instance of module.
          and the method was exposed to global scope
-        @method define
-        @for window
-        @public
+        @class define
+        @constructor
+        @namespace window
+        @static
         @param {String} id the module name for the instance, it should be unique and the namspace is expected like 'mywork/module1'
         @param {Array} [req] the required modules for this module
         @param {Function} factory the factory function for the module
-        @return {Object} an instance of Module
+        @return {Module} an instance of Module
          **/
-        _define=function(id,req,factory){
+  var      _define=function(id,req,factory){
                 var module=Module.createInstance(id,req,factory);
                 if(module.id){
                     moduleList[id]=module;

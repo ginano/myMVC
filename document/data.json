@@ -8,16 +8,17 @@
     "files": {
         "commonJS\\module.js": {
             "name": "commonJS\\module.js",
-            "modules": {},
+            "modules": {
+                "window": 1
+            },
             "classes": {
                 "commonjs.Module": 1,
-                "commonjs.window": 1
+                "window.define": 1
             },
-            "fors": {
-                "commonjs.window": 1
-            },
+            "fors": {},
             "namespaces": {
-                "commonjs": 1
+                "commonjs": 1,
+                "window": 1
             }
         },
         "core\\jQuery.source.js": {
@@ -43,13 +44,52 @@
             "fors": {},
             "namespaces": {}
         },
+        "modules\\mvc.controller.js": {
+            "name": "modules\\mvc.controller.js",
+            "modules": {
+                "modules/mymvc/controllers": 1
+            },
+            "classes": {
+                "modules.mymvc.Controller": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            }
+        },
         "modules\\mvc.js": {
             "name": "modules\\mvc.js",
             "modules": {
-                "modules/mvc": 1
+                "modules/mymvc": 1
             },
             "classes": {
                 "modules.mymvc.MVC": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            }
+        },
+        "modules\\mvc.model.js": {
+            "name": "modules\\mvc.model.js",
+            "modules": {
+                "modules/mymvc/model": 1
+            },
+            "classes": {
+                "modules.mymvc.Model": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            }
+        },
+        "modules\\mvc.view.js": {
+            "name": "modules\\mvc.view.js",
+            "modules": {
+                "modules/mymvc/view": 1
+            },
+            "classes": {
+                "modules.mymvc.View": 1
             },
             "fors": {},
             "namespaces": {
@@ -65,22 +105,52 @@
         }
     },
     "modules": {
-        "modules/class": {
-            "name": "modules/class",
+        "window": {
+            "name": "window",
             "submodules": {},
             "classes": {
                 "commonjs.Module": 1,
-                "commonjs.window": 1
+                "window.define": 1
             },
+            "fors": {},
+            "namespaces": {
+                "commonjs": 1,
+                "window": 1
+            },
+            "tag": "module",
+            "file": "commonJS\\module.js",
+            "line": 161,
+            "description": "this is an visual Class reference to global scope of window.\nall the properties and functions belong to window or other code exposed to global scope will be classed to this module.\nand all the properties could be for the static class named window, such as window.define",
+            "itemtype": "main"
+        },
+        "modules/class": {
+            "name": "modules/class",
+            "submodules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "commonJS\\module.js",
-            "line": 153,
+            "file": "modules\\class.js",
+            "line": 2,
             "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class"
         },
-        "modules/mvc": {
-            "name": "modules/mvc",
+        "modules/mymvc/controllers": {
+            "name": "modules/mymvc/controllers",
+            "submodules": {},
+            "classes": {
+                "modules.mymvc.Controller": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            },
+            "tag": "module",
+            "file": "modules\\mvc.controller.js",
+            "line": 11,
+            "description": "it will return the Controller  of MVC."
+        },
+        "modules/mymvc": {
+            "name": "modules/mymvc",
             "submodules": {},
             "classes": {
                 "modules.mymvc.MVC": 1
@@ -93,6 +163,36 @@
             "file": "modules\\mvc.js",
             "line": 16,
             "description": "it will return the Class of MVC."
+        },
+        "modules/mymvc/model": {
+            "name": "modules/mymvc/model",
+            "submodules": {},
+            "classes": {
+                "modules.mymvc.Model": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            },
+            "tag": "module",
+            "file": "modules\\mvc.model.js",
+            "line": 11,
+            "description": "it will return the Module  of MVC."
+        },
+        "modules/mymvc/view": {
+            "name": "modules/mymvc/view",
+            "submodules": {},
+            "classes": {
+                "modules.mymvc.View": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "modules.mymvc": 1
+            },
+            "tag": "module",
+            "file": "modules\\mvc.view.js",
+            "line": 9,
+            "description": "it will return the View  of MVC."
         }
     },
     "classes": {
@@ -104,27 +204,81 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "modules/class",
+            "module": "window",
             "namespace": "commonjs",
             "file": "commonJS\\module.js",
-            "line": 5,
+            "line": 11,
             "description": "the module class for the commonjs to manage the modules for the application",
             "is_constructor": 1
         },
-        "commonjs.window": {
-            "name": "commonjs.window",
-            "shortname": "window",
+        "window.define": {
+            "name": "window.define",
+            "shortname": "window.define",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "modules/class",
-            "namespace": "commonjs",
+            "module": "window",
+            "namespace": "window",
             "file": "commonJS\\module.js",
-            "line": 153,
-            "description": "this is an visual Class reference to global scope of window",
-            "is_constructor": 1
+            "line": 161,
+            "description": "define a new module so that you don't care how to create an instance of module.\nand the method was exposed to global scope",
+            "is_constructor": 1,
+            "static": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "the module name for the instance, it should be unique and the namspace is expected like 'mywork/module1'",
+                    "type": "String"
+                },
+                {
+                    "name": "req",
+                    "description": "the required modules for this module",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "factory",
+                    "description": "the factory function for the module",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "an instance of Module",
+                "type": "Module"
+            }
+        },
+        "modules.mymvc.Controller": {
+            "name": "modules.mymvc.Controller",
+            "shortname": "modules.mymvc.Controller",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/mymvc/controllers",
+            "namespace": "modules.mymvc",
+            "file": "modules\\mvc.controller.js",
+            "line": 11,
+            "description": "the  class for to implement Controller  part in the MVC design pattern",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "notify",
+                    "description": "the communication tool bettween every mmodule",
+                    "type": "Notify"
+                }
+            ],
+            "return": {
+                "description": "return the controller linked with itself's model and notify",
+                "type": "Controller"
+            }
         },
         "modules.mymvc.MVC": {
             "name": "modules.mymvc.MVC",
@@ -134,18 +288,48 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "modules/mvc",
+            "module": "modules/mymvc",
             "namespace": "modules.mymvc",
             "file": "modules\\mvc.js",
             "line": 16,
             "description": "the  class for to implement the MVC design pattern",
+            "is_constructor": 1
+        },
+        "modules.mymvc.Model": {
+            "name": "modules.mymvc.Model",
+            "shortname": "modules.mymvc.Model",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/mymvc/model",
+            "namespace": "modules.mymvc",
+            "file": "modules\\mvc.model.js",
+            "line": 11,
+            "description": "the  class for to implement model  part in the MVC design pattern",
+            "is_constructor": 1
+        },
+        "modules.mymvc.View": {
+            "name": "modules.mymvc.View",
+            "shortname": "modules.mymvc.View",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "modules/mymvc/view",
+            "namespace": "modules.mymvc",
+            "file": "modules\\mvc.view.js",
+            "line": 9,
+            "description": "the  class for to implement view  part in the MVC design pattern",
             "is_constructor": 1
         }
     },
     "classitems": [
         {
             "file": "commonJS\\module.js",
-            "line": 12,
+            "line": 18,
             "description": "the initial entry for this Module,and it will be excuted immediately when the instance is created! \nThe params are from the function of Module.createInstace(id,req,factory);",
             "itemtype": "method",
             "name": "init",
@@ -174,11 +358,12 @@
                 "type": "Object"
             },
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 59,
+            "line": 65,
             "description": "the unique id for the module",
             "itemtype": "property",
             "name": "id",
@@ -187,11 +372,12 @@
             "type": "String",
             "default": "''",
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 67,
+            "line": 73,
             "description": "excute the module.\nbecause the module just was registered in module management center before excuting it.",
             "itemtype": "method",
             "name": "excute",
@@ -209,11 +395,12 @@
                 "type": "Object"
             },
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 87,
+            "line": 93,
             "description": "the internal implement for the method of excute.\nit will get all the required modules, and excute the facotry of this module.\nand store the result to the property exprots",
             "itemtype": "method",
             "name": "excuteit",
@@ -224,11 +411,12 @@
                 "type": "Object"
             },
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 100,
+            "line": 106,
             "description": "it will get all the required modules .",
             "itemtype": "method",
             "name": "getRequireList",
@@ -246,11 +434,12 @@
                 "type": "Array"
             },
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 123,
+            "line": 129,
             "description": "it will get the export of the modules . \nif the factory hasn't been excuted, it will execute the factory of this module by call this.excuteit().",
             "itemtype": "method",
             "name": "getExports",
@@ -261,11 +450,12 @@
                 "type": "Object"
             },
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 136,
+            "line": 142,
             "description": "store the names of all the required modules",
             "itemtype": "property",
             "name": "requiredList",
@@ -274,11 +464,12 @@
             "type": "Array",
             "default": "[]",
             "class": "commonjs.Module",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
             "file": "commonJS\\module.js",
-            "line": 144,
+            "line": 150,
             "description": "store the exports of this module",
             "itemtype": "property",
             "name": "exports",
@@ -287,39 +478,7 @@
             "type": "object",
             "default": "null",
             "class": "commonjs.Module",
-            "namespace": "commonjs"
-        },
-        {
-            "file": "commonJS\\module.js",
-            "line": 159,
-            "description": "define a new module so that you don't care how to create an instance of module.\nand the method was exposed to global scope",
-            "itemtype": "method",
-            "name": "define",
-            "access": "public",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "id",
-                    "description": "the module name for the instance, it should be unique and the namspace is expected like 'mywork/module1'",
-                    "type": "String"
-                },
-                {
-                    "name": "req",
-                    "description": "the required modules for this module",
-                    "type": "Array",
-                    "optional": true
-                },
-                {
-                    "name": "factory",
-                    "description": "the factory function for the module",
-                    "type": "Function"
-                }
-            ],
-            "return": {
-                "description": "an instance of Module",
-                "type": "Object"
-            },
-            "class": "commonjs.window",
+            "module": "window",
             "namespace": "commonjs"
         },
         {
@@ -333,15 +492,17 @@
                     "type": "Array|Element"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 4,
             "description": "���� ���еĳ�Ա",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -369,8 +530,9 @@
                     "type": "Array"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -393,36 +555,41 @@
                     "type": "Boolean"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 84,
             "description": "���ҽ��������ȸ��ƺ�����������Ҫ���Ƶ��ҵ���չ���Ե�ʱ����ִ��",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 103,
             "description": "�������еĳ�Ա",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 125,
             "description": "��ȡԪ��byid",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 134,
             "description": "����һ��Ԫ��",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -440,92 +607,105 @@
                     "type": "String"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 200,
             "description": "���������ڵ������ռ�",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 204,
             "description": "class������",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 208,
             "description": "ʵ������ʱ��ϵͳ���ɵĹ��캯��",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 214,
             "description": "��������ʱ�����õ�ǰ��",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 228,
             "description": "�ܱ����ķ���",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 234,
             "description": "��������",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 240,
             "description": "�̳��б�",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 247,
             "description": "ʵ�ֵĽӿ��б�",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 263,
             "description": "��class������",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 271,
             "description": "�ܱ����ķ���",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 277,
             "description": "��������",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 287,
             "description": "class���صĹ�����֧��",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -543,15 +723,17 @@
                     "type": "String"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 329,
             "description": "������һ��Class",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -569,15 +751,17 @@
                     "type": "Object"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 412,
             "description": "�����ӿ�",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -590,8 +774,9 @@
                     "type": "Class"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -609,8 +794,9 @@
                     "type": "Object"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -623,8 +809,9 @@
                     "type": "Class"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
@@ -637,15 +824,17 @@
                     "type": "Interface"
                 }
             ],
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "core\\jdk.js",
             "line": 499,
             "description": "ʵ���������� \n ����",
-            "class": "modules.mymvc.MVC",
-            "namespace": "commonjs"
+            "class": "modules.mymvc.Controller",
+            "module": "window",
+            "namespace": "window"
         },
         {
             "file": "modules\\mvc.js",
@@ -677,7 +866,7 @@
                 "type": "MVC"
             },
             "class": "modules.mymvc.MVC",
-            "module": "modules/mvc",
+            "module": "modules/mymvc",
             "namespace": "modules.mymvc"
         },
         {
@@ -688,7 +877,7 @@
             "website": "www.ginano.net",
             "fileoverview": "��������Ҫ������ļ�����",
             "class": "",
-            "module": "modules/mvc",
+            "module": "modules/mymvc/view",
             "namespace": "modules.mymvc"
         }
     ]

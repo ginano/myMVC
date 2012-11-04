@@ -1,7 +1,7 @@
 //reference core/jdk.js
 //reference module.js
 //reference class.js
-define('modules/mvc',[
+define('modules/mymvc',[
 			'modules/class',
 			'modules/mymvc/view',
 			'modules/mymvc/controller',
@@ -10,7 +10,7 @@ define('modules/mvc',[
 		],function(Class,View,Controller,Model,Notify){
      /**
     * it will return the Class of MVC.
-    * @module modules/mvc
+    * @module modules/mymvc
     */
    
    /**

@@ -43,9 +43,15 @@
             
                 <li><a href="..&#x2F;classes/commonjs.Module.html">commonjs.Module</a></li>
             
-                <li><a href="..&#x2F;classes/commonjs.window.html">commonjs.window</a></li>
+                <li><a href="..&#x2F;classes/modules.mymvc.Controller.html">modules.mymvc.Controller</a></li>
+            
+                <li><a href="..&#x2F;classes/modules.mymvc.Model.html">modules.mymvc.Model</a></li>
             
                 <li><a href="..&#x2F;classes/modules.mymvc.MVC.html">modules.mymvc.MVC</a></li>
+            
+                <li><a href="..&#x2F;classes/modules.mymvc.View.html">modules.mymvc.View</a></li>
+            
+                <li><a href="..&#x2F;classes/window.define.html">window.define</a></li>
             
             </ul>
 
@@ -53,7 +59,15 @@
             
                 <li><a href="..&#x2F;modules/modules_class.html">modules&#x2F;class</a></li>
             
-                <li><a href="..&#x2F;modules/modules_mvc.html">modules&#x2F;mvc</a></li>
+                <li><a href="..&#x2F;modules/modules_mymvc.html">modules&#x2F;mymvc</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_controllers.html">modules&#x2F;mymvc&#x2F;controllers</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_model.html">modules&#x2F;mymvc&#x2F;model</a></li>
+            
+                <li><a href="..&#x2F;modules/modules_mymvc_view.html">modules&#x2F;mymvc&#x2F;view</a></li>
+            
+                <li><a href="..&#x2F;modules/window.html">window</a></li>
             
             </ul>
         </div>
@@ -94,7 +108,13 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-&#x2F;&#x2F;reference core&#x2F;jdk.js
+&#x2F;**
+ * this is an visual Class reference to global scope of window.
+ * all the properties and functions belong to window or other code exposed to global scope will be classed to this module.
+ * and all the properties could be for the static class named window, such as window.define
+ * @module window
+ * @main
+ *&#x2F;
 (function(JDK,win,undefined){
     var moduleList={};
         moduleAnonymousList=[];
@@ -245,25 +265,22 @@
                 @default null
              **&#x2F;
             public__exports:null
-        }),
-        &#x2F;**
-         * this is an visual Class reference to global scope of window
-         * @class window
-         * @constructor
-         *&#x2F;
-        
+        });
+   
+       
         &#x2F;**
          define a new module so that you don&#x27;t care how to create an instance of module.
          and the method was exposed to global scope
-        @method define
-        @for window
-        @public
+        @class define
+        @constructor
+        @namespace window
+        @static
         @param {String} id the module name for the instance, it should be unique and the namspace is expected like &#x27;mywork&#x2F;module1&#x27;
         @param {Array} [req] the required modules for this module
         @param {Function} factory the factory function for the module
-        @return {Object} an instance of Module
+        @return {Module} an instance of Module
          **&#x2F;
-        _define=function(id,req,factory){
+  var      _define=function(id,req,factory){
                 var module=Module.createInstance(id,req,factory);
                 if(module.id){
                     moduleList[id]=module;
