@@ -105,21 +105,19 @@
              */
             eachProp:function(obj,callback){
                 var i,len;
-                switch(typeof obj){
-                    case 'array':
-                        for(i=0,len=obj.length;i<len;i++){
-                            callback&&callback(i,obj);
+                if(obj instanceof Array){
+                    for(i=0,len=obj.length;i<len;i++){
+                        callback&&callback(i,obj);
+                    }
+                    return;
+                }
+                if(obj instanceof Object){
+                    for(i in obj){
+                        if(hasOwn.call(obj,i)){
+                            callback&&callback(i,obj[i]);
                         }
-                        break;
-                    case 'object':
-                        for(i in obj){
-                            if(hasOwn.call(obj,i)){
-                                callback&&callback(i,obj[i]);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    }
+                    return;
                 }
             },
             /**

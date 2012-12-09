@@ -20,7 +20,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "modules/class",
             "name": "modules_class",
-            "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class"
+            "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class 中文内容测试一下"
         },
         {
             "displayName": "modules/mymvc",

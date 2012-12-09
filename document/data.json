@@ -1,6 +1,6 @@
 {
     "project": {
-        "name": "myMVC",
+        "name": "myMVC中文",
         "description": "try to imitate the mvc design pattern of java",
         "version": "0.0.1",
         "url": "https://github.com/ginano/myMVC"
@@ -132,7 +132,7 @@
             "tag": "module",
             "file": "modules\\class.js",
             "line": 2,
-            "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class"
+            "description": "it is the constuctor of Class from the jdk.\nyou can use it to create a new class ÖÐÎÄÄÚÈÝ²âÊÔÒ»ÏÂ"
         },
         "modules/mymvc/controllers": {
             "name": "modules/mymvc/controllers",
@@ -499,7 +499,7 @@
         {
             "file": "core\\jdk.js",
             "line": 4,
-            "description": "���� ���еĳ�Ա",
+            "description": "±éÀú ËùÓÐµÄ³ÉÔ±",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -507,26 +507,26 @@
         {
             "file": "core\\jdk.js",
             "line": 9,
-            "description": "��չ����Ԫ��",
+            "description": "À©Õ¹¶ÔÏóÔªËØ",
             "params": [
                 {
                     "name": "originObj",
-                    "description": "ԭʼ����",
+                    "description": "Ô­Ê¼¶ÔÏñ",
                     "type": "Object"
                 },
                 {
                     "name": "newObj",
-                    "description": "�¶���",
+                    "description": "ÐÂ¶ÔÏó",
                     "type": "Object"
                 },
                 {
                     "name": "isOverride",
-                    "description": "[option][default=true]�Ƿ񸲸����ж���",
+                    "description": "[option][default=true]ÊÇ·ñ¸²¸ÇÒÑÓÐ¶ÔÏó",
                     "type": "Boolean"
                 },
                 {
                     "name": "selectedProperty",
-                    "description": "[option]�����б�",
+                    "description": "[option]¸²¸ÇÁÐ±í",
                     "type": "Array"
                 }
             ],
@@ -537,7 +537,7 @@
         {
             "file": "core\\jdk.js",
             "line": 49,
-            "description": "����copyһ������",
+            "description": "Éî¶ÈcopyÒ»¸ö¶ÔÏó",
             "params": [
                 {
                     "name": "o",
@@ -546,12 +546,12 @@
                 },
                 {
                     "name": "isCloneFunction",
-                    "description": "�Ƿ����ƺ���",
+                    "description": "ÊÇ·ñ¸´ÖÆº¯Êý",
                     "type": "Boolean"
                 },
                 {
                     "name": "isClonePrototype",
-                    "description": "�Ƿ����ƺ�������չ����",
+                    "description": "ÊÇ·ñ¸´ÖÆº¯ÊýµÄÀ©Õ¹ÊôÐÔ",
                     "type": "Boolean"
                 }
             ],
@@ -562,7 +562,7 @@
         {
             "file": "core\\jdk.js",
             "line": 84,
-            "description": "���ҽ��������ȸ��ƺ�����������Ҫ���Ƶ��ҵ���չ���Ե�ʱ����ִ��",
+            "description": "µ±ÇÒ½öµ±ÊÇÉî¶È¸´ÖÆº¯Êý£¬²¢ÇÒÐèÒª¸´ÖÆµ±ÇÒµÄÀ©Õ¹ÊôÐÔµÄÊ±ºò²ÅÖ´ÐÐ",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -570,7 +570,7 @@
         {
             "file": "core\\jdk.js",
             "line": 103,
-            "description": "�������еĳ�Ա",
+            "description": "±éÀúËùÓÐµÄ³ÉÔ±",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -578,7 +578,7 @@
         {
             "file": "core\\jdk.js",
             "line": 125,
-            "description": "��ȡԪ��byid",
+            "description": "»ñÈ¡ÔªËØbyid",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -586,7 +586,7 @@
         {
             "file": "core\\jdk.js",
             "line": 134,
-            "description": "����һ��Ԫ��",
+            "description": "´´½¨Ò»¸öÔªËØ",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -594,16 +594,16 @@
         {
             "file": "core\\jdk.js",
             "line": 172,
-            "description": "�ж��ǲ��ǳ�Ա����",
+            "description": "ÅÐ¶ÏÊÇ²»ÊÇ³ÉÔ±µ÷ÓÃ",
             "params": [
                 {
                     "name": "args",
-                    "description": "��������ĳ�������ڵ�arguments",
+                    "description": "´«ÈëµÄÊÇÄ³¸öº¯ÊýÄÚµÄarguments",
                     "type": "Object"
                 },
                 {
                     "name": "byWhat",
-                    "description": "ͨ��ʲô��Ա����У�飿",
+                    "description": "Í¨¹ýÊ²Ã´³ÉÔ±ÃûÀ´Ð£Ñé£¿",
                     "type": "String"
                 }
             ],
@@ -614,7 +614,7 @@
         {
             "file": "core\\jdk.js",
             "line": 200,
-            "description": "���������ڵ������ռ�",
+            "description": "¸ÃÀàÐÍËùÔÚµÄÃüÃû¿Õ¼ä",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -622,7 +622,7 @@
         {
             "file": "core\\jdk.js",
             "line": 204,
-            "description": "class������",
+            "description": "classµÄÀàÐÍ",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -630,7 +630,7 @@
         {
             "file": "core\\jdk.js",
             "line": 208,
-            "description": "ʵ������ʱ��ϵͳ���ɵĹ��캯��",
+            "description": "ÊµÀý»¯µÄÊ±ºòÏµÍ³Éú³ÉµÄ¹¹Ôìº¯Êý",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -638,7 +638,7 @@
         {
             "file": "core\\jdk.js",
             "line": 214,
-            "description": "��������ʱ�����õ�ǰ��",
+            "description": "´´½¨ÀàµÄÊ±ºòÒýÓÃµ±Ç°Àà",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -646,7 +646,7 @@
         {
             "file": "core\\jdk.js",
             "line": 228,
-            "description": "�ܱ����ķ���",
+            "description": "ÊÜ±£»¤µÄ·½·¨",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -654,7 +654,7 @@
         {
             "file": "core\\jdk.js",
             "line": 234,
-            "description": "��������",
+            "description": "¹«¿ª·½·¨",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -662,7 +662,7 @@
         {
             "file": "core\\jdk.js",
             "line": 240,
-            "description": "�̳��б�",
+            "description": "¼Ì³ÐÁÐ±í",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -670,7 +670,7 @@
         {
             "file": "core\\jdk.js",
             "line": 247,
-            "description": "ʵ�ֵĽӿ��б�",
+            "description": "ÊµÏÖµÄ½Ó¿ÚÁÐ±í",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -678,7 +678,7 @@
         {
             "file": "core\\jdk.js",
             "line": 263,
-            "description": "��class������",
+            "description": "¸ÄclassµÄÀàÐÍ",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -686,7 +686,7 @@
         {
             "file": "core\\jdk.js",
             "line": 271,
-            "description": "�ܱ����ķ���",
+            "description": "ÊÜ±£»¤µÄ·½·¨",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -694,7 +694,7 @@
         {
             "file": "core\\jdk.js",
             "line": 277,
-            "description": "��������",
+            "description": "¹«¿ª·½·¨",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -702,7 +702,7 @@
         {
             "file": "core\\jdk.js",
             "line": 287,
-            "description": "class���صĹ�����֧��",
+            "description": "classÏà¹ØµÄ¹¤¾ßÀàÖ§³Ö",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -710,7 +710,7 @@
         {
             "file": "core\\jdk.js",
             "line": 291,
-            "description": "��ȡ�����ռ�",
+            "description": "»ñÈ¡ÃüÃû¿Õ¼ä",
             "params": [
                 {
                     "name": "path",
@@ -730,7 +730,7 @@
         {
             "file": "core\\jdk.js",
             "line": 329,
-            "description": "������һ��Class",
+            "description": "ÐÂÔö¼ÓÒ»¸öClass",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -738,16 +738,16 @@
         {
             "file": "core\\jdk.js",
             "line": 358,
-            "description": "�๹����  ��Ŀǰ��֧��__static���ͣ�������������������",
+            "description": "Àà¹¹ÔìÆ÷  £¬Ä¿Ç°½öÖ§³Ö__staticÀàÐÍ£¬ºóÐøÔÙÌí¼ÓÆäËûÀàÐÍ",
             "params": [
                 {
                     "name": "classname",
-                    "description": "eg:'trade/view'��ʾ������trade�����ռ��µ�view��",
+                    "description": "eg:'trade/view'±íÊ¾´ò°üÔÙtradeÃüÃû¿Õ¼äÏÂµÄviewÀà",
                     "type": "String"
                 },
                 {
                     "name": "obj",
-                    "description": "{prop1:null,prop2__static:null} �����Ǿ�̬���Ժ���������__static��Ϊ��ʾ��",
+                    "description": "{prop1:null,prop2__static:null} Èç¹ûÊÇ¾²Ì¬ÊôÐÔºóÃæÇëÌí¼Ó__static×÷Îª±êÊ¾·û",
                     "type": "Object"
                 }
             ],
@@ -758,7 +758,7 @@
         {
             "file": "core\\jdk.js",
             "line": 412,
-            "description": "�����ӿ�",
+            "description": "¹¹Ôì½Ó¿Ú",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -766,7 +766,7 @@
         {
             "file": "core\\jdk.js",
             "line": 449,
-            "description": "��superClass�̳����Ժͷ���,ֻ�ܼ̳�superClass�Ĺ���static����",
+            "description": "´ÓsuperClass¼Ì³ÐÊôÐÔºÍ·½·¨,Ö»ÄÜ¼Ì³ÐsuperClassµÄ¹«¿ªstatic·½·¨",
             "params": [
                 {
                     "name": "superClass",
@@ -781,7 +781,7 @@
         {
             "file": "core\\jdk.js",
             "line": 464,
-            "description": "ʵ�ֽӿ�",
+            "description": "ÊµÏÖ½Ó¿Ú",
             "params": [
                 {
                     "name": "superClass",
@@ -801,7 +801,7 @@
         {
             "file": "core\\jdk.js",
             "line": 477,
-            "description": "�ж��Ƿ��̳���",
+            "description": "ÅÐ¶ÏÊÇ·ñ¼Ì³Ð×Ô",
             "params": [
                 {
                     "name": "superClass",
@@ -816,7 +816,7 @@
         {
             "file": "core\\jdk.js",
             "line": 486,
-            "description": "�ж��Ƿ�ʵ����ĳ���ӿ�",
+            "description": "ÅÐ¶ÏÊÇ·ñÊµÏÖÁËÄ³¸ö½Ó¿Ú",
             "params": [
                 {
                     "name": "pInterface",
@@ -831,7 +831,7 @@
         {
             "file": "core\\jdk.js",
             "line": 499,
-            "description": "ʵ���������� \n ����",
+            "description": "ÊµÀý»¯Õâ¸öÀà \n ÊôÐÔ",
             "class": "modules.mymvc.Controller",
             "module": "window",
             "namespace": "window"
@@ -875,7 +875,7 @@
             "author": "ginano",
             "date": "2012-10-18",
             "website": "www.ginano.net",
-            "fileoverview": "��������Ҫ������ļ�����",
+            "fileoverview": "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½",
             "class": "",
             "module": "modules/mymvc/view",
             "namespace": "modules.mymvc"

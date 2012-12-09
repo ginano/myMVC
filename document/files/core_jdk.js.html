@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>core\jdk.js - myMVC</title>
+    <title>core\jdk.js - myMVC中文</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.7.0&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -15,7 +15,7 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="..&#x2F;assets/css/logo.png" title="myMVC"></h1>
+                <h1><img src="..&#x2F;assets/css/logo.png" title="myMVC中文"></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
@@ -112,16 +112,16 @@
 (function(win,undefined){
     var isDebug=&#x2F;debug&#x2F;i.test(win.location.hash),
         &#x2F;**
-         *���� ���еĳ�Ա
+         *±éÀú ËùÓÐµÄ³ÉÔ±
          *&#x2F;
         hasOwn = Object.prototype.hasOwnProperty, 
         Util={
             &#x2F;**
-             * ��չ����Ԫ��
-             * @param {Object} originObj ԭʼ����
-             * @param {Object} newObj   �¶���
-             * @param {Boolean} isOverride  [option][default=true]�Ƿ񸲸����ж���
-             * @param {Array} selectedProperty [option]�����б�
+             * À©Õ¹¶ÔÏóÔªËØ
+             * @param {Object} originObj Ô­Ê¼¶ÔÏñ
+             * @param {Object} newObj   ÐÂ¶ÔÏó
+             * @param {Boolean} isOverride  [option][default=true]ÊÇ·ñ¸²¸ÇÒÑÓÐ¶ÔÏó
+             * @param {Array} selectedProperty [option]¸²¸ÇÁÐ±í
              *&#x2F;
             extend:function(originObj, newObj, isOverride,selectedProperty){
                 var p,item;
@@ -140,7 +140,7 @@
                 if(selectedProperty &amp;&amp; (p=selectedProperty.length)){
                     while(p--){
                         item=selectedProperty[p];
-                        &#x2F;&#x2F;���̳е�ʱ���Ͳ��ü�����
+                        &#x2F;&#x2F;Àà¼Ì³ÐµÄÊ±ºò¾Í²»ÓÃ¼ì²éÁË
                         if((&#x27;function&#x27;===typeof item.getClassName)||hasOwn.call(newObj,item)){
                             (isOverride||!originObj[item]) &amp;&amp; (originObj[item]= this.cloneObject(newObj[item]));
                         }
@@ -157,10 +157,10 @@
                 
             },
             &#x2F;**
-             *����copyһ������ 
+             *Éî¶ÈcopyÒ»¸ö¶ÔÏó 
              * @param {Object} o
-             * @param {Boolean} isCloneFunction �Ƿ����ƺ���
-             * @param {Boolean} isClonePrototype �Ƿ����ƺ�������չ����
+             * @param {Boolean} isCloneFunction ÊÇ·ñ¸´ÖÆº¯Êý
+             * @param {Boolean} isClonePrototype ÊÇ·ñ¸´ÖÆº¯ÊýµÄÀ©Õ¹ÊôÐÔ
              *&#x2F;
             cloneObject:function(o,isCloneFunction,isClonePrototype){
 			    function copyObject(obj,isCopyFunction,isCopyPrototype){
@@ -192,7 +192,7 @@
 				        }
 				    }
 				    &#x2F;**
-				     *���ҽ��������ȸ��ƺ�����������Ҫ���Ƶ��ҵ���չ���Ե�ʱ����ִ�� 
+				     *µ±ÇÒ½öµ±ÊÇÉî¶È¸´ÖÆº¯Êý£¬²¢ÇÒÐèÒª¸´ÖÆµ±ÇÒµÄÀ©Õ¹ÊôÐÔµÄÊ±ºò²ÅÖ´ÐÐ 
 				     *&#x2F;
 				    if(con==Function&amp;&amp;isCopyFunction&amp;&amp;isCopyPrototype){
 				    	prop=obj.prototype;
@@ -211,7 +211,7 @@
 			    return copyObject(o,isCloneFunction,isClonePrototype);
             },
             &#x2F;**
-             *�������еĳ�Ա 
+             *±éÀúËùÓÐµÄ³ÉÔ± 
              *&#x2F;
             eachProp:function(obj,callback){
                 var i,len;
@@ -233,7 +233,7 @@
                 }
             },
             &#x2F;**
-             *��ȡԪ��byid 
+             *»ñÈ¡ÔªËØbyid 
              *&#x2F;
             getDom:function(id){
                 if(id===&#x27;body&#x27;){
@@ -242,7 +242,7 @@
                 return document.getElementById(id);
             },
             &#x2F;**
-             *����һ��Ԫ�� 
+             *´´½¨Ò»¸öÔªËØ 
              *&#x2F;
             createDom:function(tagname,prop){
               var _dom= document.createElement(tagname);
@@ -280,14 +280,14 @@
                 }
             },
             &#x2F;**
-             *�ж��ǲ��ǳ�Ա���� 
-             * @param {Object} args ��������ĳ�������ڵ�arguments
-             * @param {String} byWhat ͨ��ʲô��Ա����У�飿
+             *ÅÐ¶ÏÊÇ²»ÊÇ³ÉÔ±µ÷ÓÃ 
+             * @param {Object} args ´«ÈëµÄÊÇÄ³¸öº¯ÊýÄÚµÄarguments
+             * @param {String} byWhat Í¨¹ýÊ²Ã´³ÉÔ±ÃûÀ´Ð£Ñé£¿
              *&#x2F;
             checkCallerIsProperty:function(args,byWhat){
                 var caller=args.callee.caller,
                     isTrue=false;
-                &#x2F;&#x2F;����caller���ڲ��Ҹøú������������ԣ�����Ҫһֱ����˵�����ڱ�Ƕ�׵���
+                &#x2F;&#x2F;Èç¹ûcaller´æÔÚ²¢ÇÒ¸Ã¸Ãº¯Êý»¹²»ÊÇÊôÐÔ£¬¾ÍÐèÒªÒ»Ö±ÏòÉÏËµÃ÷»¹ÔÚ±»Ç¶Ì×µ÷ÓÃ
                 while(caller){
                     if(caller[byWhat]){
                         isTrue=true;
@@ -299,63 +299,63 @@
                 return isTrue;
             }
         },
-        &#x2F;&#x2F;�������ͽӿڹ���������Դ
+        &#x2F;&#x2F;½øÐÐÀàºÍ½Ó¿Ú¹ÜÀíµÄÊý¾ÝÔ´
         dataSource={
             &quot;classes&quot;:{
-                &#x2F;&#x2F;����Ϊ�����ռ�
+                &#x2F;&#x2F;±íÃûÎªÃüÃû¿Õ¼ä
                 &quot;__type__&quot;:&#x27;namespace&#x27;,
                 &quot;namespace&quot;:{
                     &quot;__type__&quot;:&#x27;namespace&#x27;,
                     &quot;_______eg&quot;:{
                         &#x2F;**
-                         *���������ڵ������ռ� 
+                         *¸ÃÀàÐÍËùÔÚµÄÃüÃû¿Õ¼ä 
                          *&#x2F;
                         &#x27;classPath&#x27;:&#x27;namespace&#x2F;myclass&#x27;,
                         &#x2F;**
-                         *class������ 
+                         *classµÄÀàÐÍ 
                          *&#x2F;
                         &#x27;__type__&#x27;:&#x27;class&#x27;,
                         &#x2F;**
-                         *ʵ������ʱ��ϵͳ���ɵĹ��캯�� 
+                         *ÊµÀý»¯µÄÊ±ºòÏµÍ³Éú³ÉµÄ¹¹Ôìº¯Êý 
                          *&#x2F;
                         &#x27;__constructor__&#x27;:function(){
                             
                         },
                         &#x2F;**
-                         *��������ʱ�����õ�ǰ�� 
+                         *´´½¨ÀàµÄÊ±ºòÒýÓÃµ±Ç°Àà 
                          *&#x2F;
                         &#x27;__class__&#x27;:null,
                         &#x2F;*
-                         * ��ϵ�з���ֻ�ж�Ӧ��Class�ܹ�ʹ��
+                         * ´ËÏµÁÐ·½·¨Ö»ÓÐ¶ÔÓ¦µÄClassÄÜ¹»Ê¹ÓÃ
                          *&#x2F;
                         &#x27;static&#x27;:{
                             
                         },
-                        &#x2F;&#x2F;˽�з���
+                        &#x2F;&#x2F;Ë½ÓÐ·½·¨
                         &#x27;private&#x27;:{
                             
                         },
                         &#x2F;**
-                         *�ܱ����ķ��� 
+                         *ÊÜ±£»¤µÄ·½·¨ 
                          *&#x2F;
                         &#x27;protected&#x27;:{
                             
                         },
                         &#x2F;**
-                         *�������� 
+                         *¹«¿ª·½·¨ 
                          *&#x2F;
                         &#x27;public&#x27;:{
                             
                         },
                         &#x2F;**
-                         *�̳��б� 
+                         *¼Ì³ÐÁÐ±í 
                          *&#x2F;
                         &#x27;superClassList&#x27;:[
                             &#x27;namespace&#x2F;class2&#x27;,
                             &#x27;namespace&#x2F;class3&#x27;
                         ],
                         &#x2F;**
-                         *ʵ�ֵĽӿ��б� 
+                         *ÊµÏÖµÄ½Ó¿ÚÁÐ±í 
                          *&#x2F;
                         &#x27;interfaceList&#x27;:[
                             &#x27;namespace&#x2F;interface1&#x27;,
@@ -371,21 +371,21 @@
                     &quot;______eg&quot;:{
                         &#x27;interfacePath&#x27;:&#x27;namespace&#x2F;interface1&#x27;,
                         &#x2F;**
-                         *��class������ 
+                         *¸ÄclassµÄÀàÐÍ 
                          *&#x2F;
                         &#x27;__type__&#x27;:&#x27;interface&#x27;,
-                        &#x2F;&#x2F;˽�з���
+                        &#x2F;&#x2F;Ë½ÓÐ·½·¨
                         &#x27;private&#x27;:{
                             
                         },
                         &#x2F;**
-                         *�ܱ����ķ��� 
+                         *ÊÜ±£»¤µÄ·½·¨ 
                          *&#x2F;
                         &#x27;protected&#x27;:{
                             
                         },
                         &#x2F;**
-                         *�������� 
+                         *¹«¿ª·½·¨ 
                          *&#x2F;
                         &#x27;public&#x27;:{
                             
@@ -395,11 +395,11 @@
             }
         },
         &#x2F;**
-         *class���صĹ�����֧�� 
+         *classÏà¹ØµÄ¹¤¾ßÀàÖ§³Ö 
          *&#x2F;
         DataUtil={
             &#x2F;**
-             *��ȡ�����ռ� 
+             *»ñÈ¡ÃüÃû¿Õ¼ä 
              * @param {string} path the path of class or interface
              * @param {string} type class&#x2F;interface
              *&#x2F;
@@ -437,7 +437,7 @@
                 return nsp[&#x27;namespace&#x27;][nsp[&#x27;name&#x27;]];
             },
             &#x2F;**
-             *������һ��Class 
+             *ÐÂÔö¼ÓÒ»¸öClass 
              *&#x2F;
             addNewClass:function(obj){
                 var namesp=this.getNameSpace(obj.classPath,&#x27;class&#x27;);
@@ -466,16 +466,16 @@
             }
         };
     &#x2F;**
-     *�๹����  ��Ŀǰ��֧��__static���ͣ�������������������
-     * @param {String} classname eg:&#x27;trade&#x2F;view&#x27;��ʾ������trade�����ռ��µ�view��
-     * @param {Object} obj {prop1:null,prop2__static:null} �����Ǿ�̬���Ժ���������__static��Ϊ��ʾ��
+     *Àà¹¹ÔìÆ÷  £¬Ä¿Ç°½öÖ§³Ö__staticÀàÐÍ£¬ºóÐøÔÙÌí¼ÓÆäËûÀàÐÍ
+     * @param {String} classname eg:&#x27;trade&#x2F;view&#x27;±íÊ¾´ò°üÔÙtradeÃüÃû¿Õ¼äÏÂµÄviewÀà
+     * @param {Object} obj {prop1:null,prop2__static:null} Èç¹ûÊÇ¾²Ì¬ÊôÐÔºóÃæÇëÌí¼Ó__static×÷Îª±êÊ¾·û
      *&#x2F;
     function Class(classname,obj){
         if(typeof classname !==&#x27;string&#x27;){
             Util.log(classname+&#x27; is not an invalid classname like &quot;modules&#x2F;view&quot;!&#x27;);
             return;
         }
-        &#x2F;&#x2F;��Ҫ�����ϲ���Class
+        &#x2F;&#x2F;ÐèÒª¸²¸ÇÉÏ²ãµÄClass
         if(!(this instanceof Class)){
             return new Class(classname,obj);
         }
@@ -492,15 +492,15 @@
         
         Util.eachProp(obj,function(p,value){
             var type=p.match(&#x2F;^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$&#x2F;);
-            &#x2F;&#x2F;��������������
+            &#x2F;&#x2F;Èç¹ûÉèÖÃÀàÀàÐÍ
             if(type){
-                &#x2F;&#x2F;�����еĺ�����Ա��һ�����Ա��ڱ�ʾ
+                &#x2F;&#x2F;¸øËùÓÐµÄº¯Êý³ÉÔ±¼ÓÒ»¸öÊôÐÔ±ãÓÚ±êÊ¾
                 if(typeof value===&#x27;function&#x27;){
                     value.__isJDKProperty__=true;
                 }
-                &#x2F;&#x2F;Ĭ��public
+                &#x2F;&#x2F;Ä¬ÈÏpublic
                 type[2]=type[2]||&#x27;public&#x27;;
-                if(type[1]){&#x2F;&#x2F;staticֱ�Ӹ�ֵ������Class��
+                if(type[1]){&#x2F;&#x2F;staticÖ±½Ó¸³Öµ¸øÕâ¸öClassÁË
                     _this[type[3]]=value;
                     _class[type[1]][type[3]]=value;
                 }else if(type[2]){
@@ -520,7 +520,7 @@
     }
     
     &#x2F;**
-     *�����ӿ� 
+     *¹¹Ôì½Ó¿Ú 
      *&#x2F;
     function Interface(interfaceName,obj){
         if(! (this instanceof Interface)){
@@ -536,10 +536,10 @@
         
         Util.eachProp(obj,function(p,value){
             var type=p.match(&#x2F;^(?:(static)__)?(?:(public|private|protected)__)?([^__]+)$&#x2F;);
-            &#x2F;&#x2F;��������������
+            &#x2F;&#x2F;Èç¹ûÉèÖÃÀàÀàÐÍ
             if(type){
                 type[2]=type[2]||&#x27;public&#x27;;
-                if(type[1]){&#x2F;&#x2F;staticֱ�Ӹ�ֵ������Class��
+                if(type[1]){&#x2F;&#x2F;staticÖ±½Ó¸³Öµ¸øÕâ¸öClassÁË
                     _class[type[1]][type[3]]=value;
                 }else if(type[2]){
                     _class[type[2]][type[3]]=value;
@@ -554,10 +554,10 @@
           return interfaceName;  
         };
     }
-    &#x2F;&#x2F;��չClass
+    &#x2F;&#x2F;À©Õ¹Class
     Util.extend(Class.prototype,{
             &#x2F;**
-             * ��superClass�̳����Ժͷ���,ֻ�ܼ̳�superClass�Ĺ���static����
+             * ´ÓsuperClass¼Ì³ÐÊôÐÔºÍ·½·¨,Ö»ÄÜ¼Ì³ÐsuperClassµÄ¹«¿ªstatic·½·¨
              * @param {Class} superClass
              *&#x2F;
            extend:function(superClass){
@@ -572,7 +572,7 @@
                return this;
            },
            &#x2F;**
-            *ʵ�ֽӿ� 
+            *ÊµÏÖ½Ó¿Ú 
             * @param {Interface} superClass
             * @param {Object} methods {method:function(){}}
             *&#x2F;
@@ -585,7 +585,7 @@
                return this;
            },
            &#x2F;**
-            *�ж��Ƿ��̳��� 
+            *ÅÐ¶ÏÊÇ·ñ¼Ì³Ð×Ô 
             * @param {Class} superClass
             *&#x2F;
            isExtendsFrom:function(superClass){
@@ -594,7 +594,7 @@
                 return _class.superClassList.indexOf(superClass)&gt;-1;
            },
            &#x2F;**
-            *�ж��Ƿ�ʵ����ĳ���ӿ� 
+            *ÅÐ¶ÏÊÇ·ñÊµÏÖÁËÄ³¸ö½Ó¿Ú 
             * @param {Interface} pInterface
             *&#x2F;
            isImplements:function(pInterface){
@@ -607,8 +607,8 @@
               return clspA[clspA.length-1];  
            },
            &#x2F;**
-            *ʵ���������� 
-            * ����
+            *ÊµÀý»¯Õâ¸öÀà 
+            * ÊôÐÔ
             *&#x2F;
            createInstance:function(){
                var clsp=this.getClassPath(),
@@ -616,11 +616,11 @@
                    _class=DataUtil.getClass(clsp),
                    con,properties={},functions={},
                    i,p,len,temp={},tempclass,tempcase,Incase;
-               &#x2F;&#x2F;������û�����ɹ����캯���������ɹ��캯��
-               &#x2F;&#x2F;���캯��ֻ���ɹ����ĺ���������ֵӦ�����ӵ�ʵ������
+               &#x2F;&#x2F;Èç¹û»¹Ã»ÓÐÉú³É¹ý¹¹Ôìº¯Êý£¬¾ÍÉú³É¹¹Ôìº¯Êý
+               &#x2F;&#x2F;¹¹Ôìº¯ÊýÖ»Éú³É¹«¹²µÄº¯Êý£¬ÊôÐÔÖµÓ¦µ±¸½¼Óµ½ÊµÀýÉÏÃæ
                if(!_class.__constructor__){
                    eval(&#x27;function &#x27;+clsn+&#x27;(){};con=&#x27;+clsn+&#x27;;&#x27;);
-                   &#x2F;&#x2F;�̳�ʵ��,ֻ�ܼ̳�public��protected
+                   &#x2F;&#x2F;¼Ì³ÐÊµÏÖ,Ö»ÄÜ¼Ì³ÐpublicºÍprotected
                    len=_class.superClassList.length;
                    for(i=0;i&lt;len;i++){
                        tempclass=DataUtil.getClass(_class.superClassList[i]);
@@ -643,7 +643,7 @@
                        }
                       
                    }
-                  &#x2F;&#x2F;ֻ��function���д��� 
+                  &#x2F;&#x2F;Ö»¶Ôfunction½øÐÐ´¦Àí 
                   for(_p in _class[&#x27;public&#x27;]){
                       if(typeof _class[&#x27;public&#x27;][_p]===&#x27;function&#x27;){
                          functions[_p]=_class[&#x27;public&#x27;][_p];
@@ -651,9 +651,9 @@
                           properties[_p]=_class[&#x27;public&#x27;][_p];
                       }
                   } 
-                   &#x2F;&#x2F;��������ʵ��
+                   &#x2F;&#x2F;×ÔÉí·½·¨ÊµÏÖ
                   &#x2F;&#x2F;Util.extend(con.prototype,_class[&#x27;public&#x27;],true);
-                  &#x2F;&#x2F;ֻ��function���д��� 
+                  &#x2F;&#x2F;Ö»¶Ôfunction½øÐÐ´¦Àí 
                   for(_p in _class[&#x27;protected&#x27;]){
                       if(typeof _class[&#x27;protected&#x27;][_p]===&#x27;function&#x27;){
                           functions[_p]=_class[&#x27;protected&#x27;][_p];
@@ -661,13 +661,13 @@
                           properties[_p]=_class[&#x27;protected&#x27;][_p];
                       }
                   } 
-                   &#x2F;&#x2F;��������ʵ��
+                   &#x2F;&#x2F;×ÔÉí·½·¨ÊµÏÖ
                    &#x2F;&#x2F;Util.extend(con.prototype,_class[&#x27;protected&#x27;],true);
-                   &#x2F;&#x2F;��������ʵ��
+                   &#x2F;&#x2F;×ÔÉí·½·¨ÊµÏÖ
                    for(_p in _class[&#x27;private&#x27;]){
                        if(typeof _class[&#x27;private&#x27;][_p]===&#x27;function&#x27;){
                            functions[_p]=(function(p){
-                               &#x2F;&#x2F;�������������������ã����޷�����
+                               &#x2F;&#x2F;Èç¹û²»ÊÇ×ÔÉí·½·¨µ÷ÓÃ£¬ÔòÎÞ·¨Íê³É
                                return function(){
                                   if(!Util.checkCallerIsProperty(arguments,&#x27;__isJDKProperty__&#x27;)){
                                       Util.log(p+&#x27; is a private property!&#x27;);
@@ -697,10 +697,10 @@
                    con=_class.__constructor__;
                }
                Incase=new con();
-               &#x2F;&#x2F;��չ���ԣ�����������ʵ�����У�����ͨ��prototype�����ɣ��������γ��໥����
+               &#x2F;&#x2F;À©Õ¹ÊôÐÔ£¬Õâ¸ö±ØÐëÊÇÊµÀý¶ÀÓÐ£¬²»ÄÜÍ¨¹ýprototypeÀ´Íê³É£¬ÕâÑù»áÐÎ³ÉÏà»¥¸ÉÈÅ
                &#x2F;&#x2F;public
                
-               &#x2F;&#x2F;ֻ��function���д��� 
+               &#x2F;&#x2F;Ö»¶Ôfunction½øÐÐ´¦Àí 
                Util.extend(Incase,_class.__properties__,true);
                Incase.init&amp;&amp;Incase.init.apply(Incase,arguments);
                return Incase; 
@@ -708,9 +708,9 @@
         },
         true
     );
-    &#x2F;&#x2F;���ص�ȫ�ֱ���
+    &#x2F;&#x2F;·µ»Øµ½È«¾Ö±äÁ¿
     Util.extend(win,{
-           &#x2F;&#x2F;���⹫��ΪJDK
+           &#x2F;&#x2F;¶ÔÍâ¹«²¼ÎªJDK
            &quot;JDK&quot;:{
                 &quot;Util&quot;:Util,
                 &quot;Class&quot;:Class,
