@@ -99,9 +99,28 @@
                 @return {Object} the module
              **/
             private__excuteit:function(){
-               var args=this.getRequireList(this.requiredList);
-               this.exports=this.factory.apply(this,args);
-               return this;
+               try{
+                   var args=this.getRequireList(this.requiredList);
+                   this.exports=this.factory.apply(this,args);
+                   JDK.Util.log('[excute]: module "'+this.getUniqueId()+'" excute success!');
+                   return this;
+               }catch(e){
+                   JDK.Util.log('[excute]: module "'+this.getUniqueId()+'" excute failed!\n \t becase of that:\n\t\t'+e);
+               }
+            },
+            /**
+             *it return the uniqueId of module
+             * such as defined name or anonymous modulenumber
+             * @method  getUniqueId
+             * @private
+             * @return {String} the uniqueId
+             */
+            private__getUniqueId:function(){
+                if('string'===typeof this.id){
+                    return this.id;
+                }else{
+                    return 'anonymous '+this.id;
+                }
             },
              /**
                 it will get all the required modules .
@@ -119,7 +138,7 @@
                         if(temp){
                             _out.push(temp.getExports());
                         }else{
-                            JDK.Util.log('module '+list[i]+' not exist when it been required in module:'+this.id);
+                            JDK.Util.log('[warn]: module "'+list[i]+'" not exist when it been required in module:'+this.getUniqueId());
                             _out.push({});
                         }
                     }
@@ -171,14 +190,20 @@
         @return {Module} an instance of Module
          **/
   var      _define=function(id,req,factory){
-                var module=Module.createInstance(id,req,factory);
-                if(module.id){
-                    moduleList[id]=module;
-                }else{
-                    module.id=moduleAnonymousList.length;
-                    moduleAnonymousList.push(module);
+                try{
+                    var module=Module.createInstance(id,req,factory);
+                    if(module.id){
+                        moduleList[id]=module;
+                    }else{
+                        module.id=moduleAnonymousList.length;
+                        moduleAnonymousList.push(module);
+                    }
+                    JDK.Util.log('[register]: module "'+('string'===typeof id?id:'anonymous '+module.id)+'" register success!');
+                    return module;
+                }catch(e){
+                    JDK.Util.log('[register]: module "'+('string'===typeof id?id:'anonymous '+id)+'" register faild!\n\t becase of that:\n\t\t'+e);
                 }
-                return module;
+                
         };
     
    window.define=_define;
