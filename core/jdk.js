@@ -502,12 +502,14 @@
                var clsp=this.getClassPath(),
                    clsn=this.getClassName(),
                    _class=DataUtil.getClass(clsp),
+                   emptyObject={},
                    con,properties={},functions={},
                    i,p,len,temp={},tempclass,tempcase,Incase;
                //如果还没有生成过构造函数，就生成构造函数
                //构造函数只生成公共的函数，属性值应当附加到实例上面
                if(!_class.__constructor__){
-                   eval('function '+clsn+'(){};con='+clsn+';');
+                   con=new Function('return function '+clsn+'(){};')();
+                   //eval('function '+clsn+'(){};con='+clsn+';');
                    //继承实现,只能继承public和protected
                    len=_class.superClassList.length;
                    for(i=0;i<len;i++){
