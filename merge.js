@@ -16,8 +16,4 @@ ImportJavaScript.url('../core/js/module.js');
 ImportJavaScript.url('../modules/js/jquery.js');
 ImportJavaScript.url('../modules/js/class.js');
 ImportJavaScript.url('../modules/js/notify.js');
-//mvc js
-ImportJavaScript.url('../modules/js/mvc.view.js');
-ImportJavaScript.url('../modules/js/mvc.controller.js');
-ImportJavaScript.url('../modules/js/mvc.model.js');
-ImportJavaScript.url('../modules/js/mvc.js');
+
