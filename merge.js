@@ -2,7 +2,7 @@
  *@author ginano
  *@date 2012-10-18
  *@website www.ginano.net
- *@fileoverview  ��������Ҫ������ļ�����
+ *@fileoverview  merge file
  */
 window.ImportJavaScript={
     url:function(url) {
@@ -10,14 +10,14 @@ window.ImportJavaScript={
     }
 }
 
-ImportJavaScript.url('../core/jdk.js');
-ImportJavaScript.url('../core/jQuery.js');
-ImportJavaScript.url('../commonJS/module.js');
-ImportJavaScript.url('../modules/jquery.js');
-ImportJavaScript.url('../modules/class.js');
-ImportJavaScript.url('../modules/notify.js');
+ImportJavaScript.url('../core/js/jdk.js');
+ImportJavaScript.url('../core/js/jQuery.js');
+ImportJavaScript.url('../core/js/module.js');
+ImportJavaScript.url('../modules/js/jquery.js');
+ImportJavaScript.url('../modules/js/class.js');
+ImportJavaScript.url('../modules/js/notify.js');
 //mvc js
-ImportJavaScript.url('../modules/mvc.view.js');
-ImportJavaScript.url('../modules/mvc.controller.js');
-ImportJavaScript.url('../modules/mvc.model.js');
-ImportJavaScript.url('../modules/mvc.js');
+ImportJavaScript.url('../modules/js/mvc.view.js');
+ImportJavaScript.url('../modules/js/mvc.controller.js');
+ImportJavaScript.url('../modules/js/mvc.model.js');
+ImportJavaScript.url('../modules/js/mvc.js');

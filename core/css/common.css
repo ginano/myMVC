@@ -1,0 +1,34 @@
+.clr{
+	zoom:1;
+}
+.clr:after{
+	display:block;
+    clear:both;
+    height:0;
+    content:"\0020";
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.bold{
+	font-weight: bold;
+}
+.hide{
+	display: none;
+}
+.relative{
+	position: relative;
+}
+.absolute{
+	position:absolute;
+}
+.inline-block{
+	display: inline-block;
+}
+.inline-block{
+	*display: inline;
+}
+
