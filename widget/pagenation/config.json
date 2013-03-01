@@ -1,0 +1,12 @@
+{
+    "name":"翻页组件",
+    "description":"经典的页面翻页切换；",
+    "author":"ginano",
+    "website":"http://www.ginano.net",
+    "projectGit":"",
+    "logoImage":"",
+    "currentVersion":"0.0.1",
+    "updateInfo":{
+      "0.0.1":['初始化组件内容','建立demo示例']  
+    }
+}
