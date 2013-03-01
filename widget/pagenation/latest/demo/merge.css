@@ -1,0 +1,6 @@
+@import url(../../../../core/css/reset.css);
+@import url(../../../../core/css/common.css);
+@import url(../../../../test/common.css);
+@import url(../../../../modules/css/input.css);
+@import url(../../../../modules/css/button.css);
+@import url(../src/pagenation.css);
