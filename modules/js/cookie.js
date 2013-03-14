@@ -7,7 +7,7 @@
  */
 define('modules/cookie', ['modules/class'], function(Class) {
     /**
-     *将str的map化，用：分割 
+     *this method will discard the renamed key in the different path, because the way is  unadvisable
      */
     function mapStr(str){
         if(!str){
@@ -16,32 +16,13 @@ define('modules/cookie', ['modules/class'], function(Class) {
         var arr=str.split(';'),
             i,len,temparr,tempkey,tempvalue,
             result={},
-            one,
-            exclude={
-                expires:0,
-                domain:'',
-                path:'',
-                secure:true,
-                httponly:true
-            };
+            one;
         for(i=0,len=arr.length;i<len;i++){
             temparr=arr[i].split('=');
-            tempkey=temparr[0].replace(/^[\s\u00A0\u3000]+|[\s\u00A0\u3000]+$/g,'').toLowerCase();
-            tempvalue=temparr[1]?temparr[1].replace(/^[\s\u00A0\u3000]+|[\s\u00A0\u3000]+$/g,''):false;
-            //if the key is system token
-            if(exclude[tempkey]!==undefined){
-                //set the default value for secure and httponly if str has the key
-                one[tempkey]=tempvalue||exclude[tempkey];
-            }else{
-                //this is another cookie value begin
-                if(i>0){
-                    result[tempkey]=one;
-                }
-                one={};
-                one.value=unescape(tempvalue);
-            }
+            tempkey=temparr[0].replace(/^[\s\u00A0\u3000]+|[\s\u00A0\u3000]+$/g,'');
+            tempvalue=temparr[1]?unescape(temparr[1]):'';
+            result[tempkey]=tempvalue;
         }
-        result[tempkey]=one;
         return result;
     }
     var Cookie = new Class('modules/cookie', {
@@ -59,20 +40,8 @@ define('modules/cookie', ['modules/class'], function(Class) {
             if(!key){
                 return cookies;
             }else{
-                return (cookies[key] && cookies[key]['value']) || null;
+                return cookies[key] || null;
             }
-        },
-        /**
-         *get the options of cookie named key
-         * @method getCookieOptions
-         * @param {String} key 
-         */
-        static__getCookieOptions:function(key){
-            var re;
-            if('string'!==typeof key){
-                return null;
-            }
-            return mapStr(document.cookie)[key] || null;
         },
         /**
          *set the cookie value of key
@@ -121,6 +90,7 @@ define('modules/cookie', ['modules/class'], function(Class) {
                 str.push('httpOnly;')
             }
             document.cookie=str.join('');
+            return this;
         },
         /**
          *delete the cookie index of key 
@@ -128,11 +98,11 @@ define('modules/cookie', ['modules/class'], function(Class) {
          * @static
          * @param {String} key
          */
-        static__deleteCookie:function(key){
+        static__deleteCookie:function(key,option){
             if('string'!==typeof key){
                 return;
             }
-            var option=map(key);
+            option=option||{};
             option['expires']=-1000;
             //set the expires to 1970-1-1 , the browser will delete this item right away when the domain and 
             this.setCookie(key,'deleted',option);
