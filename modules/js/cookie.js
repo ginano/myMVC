@@ -91,7 +91,7 @@ define('modules/cookie', ['modules/class'], function(Class) {
         static__setCookie:function(key,value,options){
             var str,
                 temp;
-            if('string'!==typeof key || 'string'!== typeof value || 'number'!==typeof value || 'boolean'!==typeof value){
+            if('string'!==typeof key || ('string'!== typeof value && 'number'!==typeof value && 'boolean'!==typeof value)){
                 return;
             }
             
@@ -101,24 +101,24 @@ define('modules/cookie', ['modules/class'], function(Class) {
                 options={};
             }
             //key=value must be the first string, Name=Value属性值对必须首先出现,在此之后的属性-值对可以以任何顺序出现.
-            str.push(escape(key)+'='+escape(value+';'));
+            str.push(escape(key)+'='+escape(value)+';');
             
-            if(options.expired && 'number'===typeof options.expired && options.expired>0)){
+            if(options.expired && 'number'===typeof options.expired && options.expired>0){
                 temp=new Date();
                 temp.setSeconds(temp.getSeconds()+options.expired);
-                str.push(';expires='+temp.toGMTString());
+                str.push('expires='+temp.toGMTString()+';');
             }
             if(options.domain && 'string'===typeof options.domain && options.path.length){
-                str.push(';domain='+options.domain);
+                str.push('domain='+options.domain+';');
             }
             if(options.path && 'string'===typeof options.path && /\//.test(options.path)){
-                str.push(';path='+options.path);
+                str.push('path='+options.path+';');
             }
             if(options.security){
-                str.push(';secure')
+                str.push('secure;')
             }
             if(options.httpOnly){
-                str.push(';httpOnly')
+                str.push('httpOnly;')
             }
             document.cookie=str.join('');
         },
