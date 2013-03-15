@@ -5,8 +5,7 @@
  *@website http://www.ginano.net
  *@date 20130228 
  */
-define('modules/json',[
-    ],function(){
+define('modules/json',['modules/class'],function(Class){
    var _JSON;
    if(window.JSON){
        _JSON=window.JSON;
@@ -80,5 +79,8 @@ define('modules/json',[
        }
    };
    
-   return _JSON;
+   return new Class('modules/json', {
+       static__parse:_JSON.parse,
+       static__stringfy:_JSON.stringfy
+   });
 });
