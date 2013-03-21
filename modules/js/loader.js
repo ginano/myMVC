@@ -7,6 +7,11 @@
 define('modules/loader',[
         'modules/class'
     ],function(Class){
+   var LoadedList={},
+       headEl=document.getElementsByTagName("head")[0],
+       isFunction=function(f){
+            return f instanceof Function;
+       };
    var bindEvent=function(el,type,callback){
        var fun;
        if(el.addEventListener){
@@ -37,30 +42,49 @@ define('modules/loader',[
        }
        fun(el,type,callback);
        bindEvent=fun;
-   };     
+   };
+        
    var Loader=new Class('modules/loader',{
        /**
        *加载js文件 
        * @param {Object} url
        */
-      public__importJS:function(url,callback,onerror){
-            var head = document.getElementsByTagName("head")[0],
-                script = document.createElement("script");
+      static__importJS:function(url,callback,onerror){
+            var head ,
+                script;
+            
+            if(LoadedList[url]){
+                isFunction(callback)&&callback();
+                return;
+            }
+            head = headEl;
+            script = document.createElement("script");
             script.type = "text/javascript";
+            if(onerror instanceof Function){
+               bindEvent(script,"error", function(){
+                   onerror(url);
+                }); 
+            }
             
-            bindEvent(script,"error", function(){
-                if(onerror){
-                    onerror(url);
+            if(isFunction(callback)){
+                //IE
+                if('string'=== typeof script.readyState){
+                    bindEvent(script,"readystatechange",function(){
+                        if(this.readyState=='loaded'||this.readyState=='complete'){
+                            LoadedList[url]=true;
+                            callback();
+                            script.onreadystatechange=script.onerror=null;
+                            head.removeChild(script);
+                        }
+                    });
                 }else{
-                    Util.Common.log('faild to load javascript file: "'+url+'"');
+                    bindEvent(script,"load",function(){
+                        LoadedList[url]=true;
+                        callback();
+                        script.onload=script.onerror=null;
+                        head.removeChild(script);
+                    });
                 }
-            }, false);
-            
-            callback && script.onload=script.onreadystatechange=function(){
-                if(!this.readyState||this.readyState=='loaded'||this.readyState=='complete'){
-                    callback();
-                }
-                script.onload=script.onreadystatechange=null;
             }
             script.src = url;
             head.appendChild(script);
@@ -69,20 +93,44 @@ define('modules/loader',[
        *加载css文件 
        * @param {Object} url
        */
-      public__importCSS:function(url,callback,onerror){
-            var head = document.getElementsByTagName("head")[0],
-                link = document.createElement("link");
+      static__importCSS:function(url,callback){
+            var head,
+                link,
+                img,
+                ua;
+            if(LoadedList[url]){
+                isFunction(callback)&&callback();
+                return;
+            }
+            head = headEl;
+            link = document.createElement("link");
             link.rel="stylesheet";
             link.type = "text/css";
-            callback && link.addEventListener("load", callback, false);
-            link.addEventListener("error", function(){
-                if(onerror){
-                    onerror(url);
-                }else{
-                    Util.Common.log('faild to load css file: "'+url+'"');
-                }
-            }, false);
             link.href=url;
+            
+            if(isFunction(callback)){
+                //如果是IE系列
+                ua=window.navigator.userAgent;      
+                if(/msie|opera|chrome|firefox/i.test(ua) ){   //IE和opera浏览器
+                    bindEvent(link,"load",function(){
+                        LoadedList[url]=true;
+                        callback();
+                        alert('css');
+                        link.onload=null;
+                    });
+                }else{
+                    //如果是非IE系列
+                    img=document.createElement('img');
+                    bindEvent(img,"error",function(){
+                        LoadedList[url]=true;
+                        callback();
+                        alert('css2');
+                        img.onerror=null;
+                        img=null;
+                    });
+                    img.src=url;
+                }
+            }
             head.appendChild(link);
       },
       /**
@@ -91,12 +139,13 @@ define('modules/loader',[
        * @param {Function} callback
        * @param {Boolean} [option=true] isOrdered 是否需要按序加载，默认是需要按序加载
        */
-      public__asyncLoad:function(urls,callback,isOrdered){
+      static__asyncLoad:function(urls,callback,isOrdered){
           var _self=this,
               isOrder=!(isOrdered===false),
               isAllDone=false,
               now,
               i,
+              urls= ('string'===typeof urls)?[urls]:urls;
               len=(urls instanceof Array) && urls.length,
               /**
                *根据后缀判断是js还是css文件 
@@ -104,7 +153,7 @@ define('modules/loader',[
                * @param {Object} done
                */
               load=function(url, done, error){
-                  if(/\.js(?:\s*)$/.test(url)){
+                  if(/\.js(?:\?\S+)?$/.test(url)){
                       _self.importJS(url,done,error);
                   }else{
                       _self.importCSS(url,done,error);

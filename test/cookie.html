@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="gbk"/>
+        <title>��������������--javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano</title>
+        <meta name="description" content="����������������javascriptȤζ̽��ϵ��,ǰ�˿���֮Ginano"/>
+        <meta name="keywords" content="����������������javascriptȤζ̽��ϵ�У�ǰ�˿���֮Ginano"/>
+        <link rel="stylesheet" href="src/common.css"/>
+        
+        <script  src="../core/js/jdk.js"></script>
+		<script  src="../core/js/jQuery.js"></script>
+		<script  src="../core/js/module.js"></script>
+		<script  src="../modules/js/jquery.js"></script>
+		<script  src="../modules/js/class.js"></script>
+		<script  src="../modules/js/loader.js"></script>
+    </head>
+    <body>
+        <a id="test" href="#" data='{"a":1}'>test</a>
+		
+        <script>
+		define(['modules/loader'],function(Loader){
+        	Loader.asyncLoad([
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/cookie.js',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/json.js',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/json.js',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/css/button.css?v=1',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/date.js',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/mvc.js',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/css/input.css?v=1',
+        		'http://ali-54473.hz.ali.com/myMVC/modules/js/mvc.model.js'
+        		
+        		],function(){
+        		alert('ok');
+        	},true);
+        	
+        }).excute();
+
+
+        
+        /*
+         *  	   
+       ImportJavaScript.url('../modules/js/mvc.view.js');
+ImportJavaScript.url('../modules/js/mvc.controller.js');
+ImportJavaScript.url('../modules/js/mvc.model.js');
+ImportJavaScript.url('../modules/js/mvc.js');
+         
+        define(['modules/jquery','modules/cookie'],function($,Cookie){
+        	Cookie.setCookie('hello','world',{
+        		path:'/',
+        		expire:200
+        	}).setCookie('hello1','world',{
+        		path:'/',
+        		expire:200
+        	}).setCookie('hello2','world1',{
+        		path:'/path/',
+        		expire:200
+        	}).setCookie('hello2','world2',{
+        		path:'/',
+        		expire:200
+        	}).setCookie('hello2','world',{
+        		path:'/myMVC/',
+        		expire:200
+        	});
+        	console.log(Cookie.getCookie('hello'));
+        }).excute();
+        define(['modules/jquery','modules/json'],function($,JSONUtil){
+        	JSONUtil.parse($('#test').attr('data'));
+        	JSONUtil.createInstance();
+        }).excute();
+        */
+        </script>
+    </body>
+</html>

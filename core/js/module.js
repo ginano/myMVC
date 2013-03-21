@@ -191,6 +191,7 @@
   var      _define=function(id,req,factory){
                 try{
                     var module=Module.createInstance(id,req,factory);
+                    
                     if(module.id){
                         moduleList[id]=module;
                     }else{

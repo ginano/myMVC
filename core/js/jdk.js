@@ -124,8 +124,8 @@
              *»ñÈ¡ÔªËØbyid 
              */
             getDom:function(id){
-                if(id==='body'){
-                    return document.body;
+                if(id=='body'){
+                    return document['body'];
                 }
                 return document.getElementById(id);
             },
@@ -155,16 +155,17 @@
                 }else{
                     html = this.getDom('class-logging');
                     body=this.getDom('body');
-                    //alert(html);
-                    if (!html) {
+                    if (!html && body) {
                         html = this.createDom('div',{
                             "id":"class-logging",
                             "html":'<h3>Debug Results:</h3><ol id="class-debug-list"></ol>'
                         });
                         body.insertBefore(html,body.firstChild);
                     }
-                    ol = this.getDom('debug-list');
-                    ol.innerHTML = ol.innerHTML + '<li>' + p + '</li>';
+                    ol = this.getDom('class-debug-list');
+                    if(ol){
+                        ol.innerHTML = ol.innerHTML + '<li>' + p + '</li>';
+                    }
                 }
             },
             /**
