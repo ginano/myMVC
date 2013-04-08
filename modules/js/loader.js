@@ -28,8 +28,8 @@ define('modules/loader',[
                 wellDone=function(){
                     LoadedList[url]=true;
                     clear();
-                    callback();
                     Util.log('load js file success:'+url);
+                    callback();
                 },
                 clear=function(){
                    script.onload=script.onreadystatechange=script.onerror=null;
@@ -91,8 +91,8 @@ define('modules/loader',[
                 wellDone=function(){
                     LoadedList[url]=true;
                     clear();
-                    callback();
                     Util.log('load css file success:'+url);
+                    callback();
                 },
                 clear=function(){
                     timer=null;
