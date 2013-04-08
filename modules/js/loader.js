@@ -1,57 +1,41 @@
 /**
  *@fileoverview  the loader plugin for asynchronous loading resources
+ * there isn't method to resolve the problem of 404
  *@author ginano
  *@website http://www.ginano.net
  *@date 20130228 
  */
 define('modules/loader',[
-        'modules/class'
-    ],function(Class){
+        'modules/class',
+        'modules/ua',
+        'modules/util'
+    ],function(Class,UA,Util){
    var LoadedList={},
        headEl=document.getElementsByTagName("head")[0],
        isFunction=function(f){
             return f instanceof Function;
        };
-   var bindEvent=function(el,type,callback){
-       var fun;
-       if(el.addEventListener){
-           fun=function(_el,_type,_callback){
-               if(!_callback instanceof Function){
-                   return;
-               }
-               _el.addEventListener(_type,function(){
-                   _callback.apply(_el);
-               });
-           }
-       }else if(el.attachEvent){
-           fun=function(_el,_type,_callback){
-               if(!_callback instanceof Function){
-                   return;
-               }
-               _el.attachEvent('on'+_type,function(){
-                   _callback.apply(_el);
-               });
-           }
-       }else{
-           fun=function(_el,_type,_callback){
-               if(!_callback instanceof Function){
-                   return;
-               }
-               _el['on'+_type]=_callback;
-           }
-       }
-       fun(el,type,callback);
-       bindEvent=fun;
-   };
         
    var Loader=new Class('modules/loader',{
        /**
        *加载js文件 
        * @param {Object} url
        */
-      static__importJS:function(url,callback,onerror){
+      static__importJS:function(url,callback){
             var head ,
-                script;
+                script,
+                //成功之后做的事情
+                wellDone=function(){
+                    LoadedList[url]=true;
+                    clear();
+                    callback();
+                    Util.log('load js file success:'+url);
+                },
+                clear=function(){
+                   script.onload=script.onreadystatechange=script.onerror=null;
+                   head.removeChild(script);
+                   head=script=null;
+                };
             
             if(LoadedList[url]){
                 isFunction(callback)&&callback();
@@ -60,32 +44,34 @@ define('modules/loader',[
             head = headEl;
             script = document.createElement("script");
             script.type = "text/javascript";
-            if(onerror instanceof Function){
-               bindEvent(script,"error", function(){
-                   onerror(url);
-                }); 
-            }
+            
+           
+           script.onerror=function(){
+               clear();
+               Util.log('load js file error:'+url);
+           }; 
+            
             
             if(isFunction(callback)){
-                //IE
-                if('string'=== typeof script.readyState){
-                    bindEvent(script,"readystatechange",function(){
-                        if(this.readyState=='loaded'||this.readyState=='complete'){
-                            LoadedList[url]=true;
-                            callback();
-                            script.onreadystatechange=script.onerror=null;
-                            head.removeChild(script);
+                //如果是IE6-IE8
+                if(UA.browser=='ie' && UA.version<9){
+                    script.onreadystatechange=function(){
+                        //当第一次访问的时候是loaded，第二次缓存访问是complete
+                        if(/loaded|complete/.test(script.readyState)){
+                            wellDone();
                         }
-                    });
+                    }
                 }else{
-                    bindEvent(script,"load",function(){
-                        LoadedList[url]=true;
-                        callback();
-                        script.onload=script.onerror=null;
-                        head.removeChild(script);
-                    });
+                    script.onload=function(){
+                       wellDone();
+                    }
                 }
+                //始终保证callback必须执行，所以需要定时器去完成，测试结果表明早期的大量的浏览器还不支持
+                //timer=setTimeout(function(){
+                //    wellDone();
+                //},10000);
             }
+            
             script.src = url;
             head.appendChild(script);
       },
@@ -97,7 +83,22 @@ define('modules/loader',[
             var head,
                 link,
                 img,
-                ua;
+                firefox,
+                opera,
+                chrome,
+                poll,
+                //成功之后做的事情
+                wellDone=function(){
+                    LoadedList[url]=true;
+                    clear();
+                    callback();
+                    Util.log('load css file success:'+url);
+                },
+                clear=function(){
+                    timer=null;
+                    link.onload=link.onerror=null;
+                    head=null;
+                };
             if(LoadedList[url]){
                 isFunction(callback)&&callback();
                 return;
@@ -108,30 +109,56 @@ define('modules/loader',[
             link.type = "text/css";
             link.href=url;
             
+            link.onerror=function(){
+               clear();
+               Util.log('load css file error:'+url);
+            }; 
             if(isFunction(callback)){
-                //如果是IE系列
-                ua=window.navigator.userAgent;      
-                if(/msie|opera|chrome|firefox/i.test(ua) ){   //IE和opera浏览器
-                    bindEvent(link,"load",function(){
-                        LoadedList[url]=true;
-                        callback();
-                        alert('css');
-                        link.onload=null;
-                    });
-                }else{
+                //如果是IE系列,直接load事件
+                if(UA.browser=='ie' 
+                    || (UA.browser=='firefox' && UA.version>8.9) 
+                    || UA.browser=='opera'
+                    || (UA.browser=='chrome' && UA.version>19) 
+                    || (UA.browser=='safari' && UA.version>5.9)
+                    
+                ){
+                
+                   //IE和opera浏览器用img实现
+                    link.onload=function(){
+                        wellDone();
+                    };
+                    head.appendChild(link);
+                    
+                }else if(
+                   (UA.browser=='chrome' && UA.version>9)
+                   || (UA.browser=='safari' && UA.version>4.9) 
+                   || UA.browser=='firefox' 
+                ){
+                
+                    head.appendChild(link);
                     //如果是非IE系列
                     img=document.createElement('img');
-                    bindEvent(img,"error",function(){
-                        LoadedList[url]=true;
-                        callback();
-                        alert('css2');
+                    img.onerror=function(){
                         img.onerror=null;
                         img=null;
-                    });
+                        wellDone();
+                    };
                     img.src=url;
+                    
+                }else{//轮询实现
+                    head.appendChild(link);
+                    poll=function(){
+                        if(link.sheet && link.sheet.cssRules){
+                            wellDone();
+                        }else{
+                            setTimeout(poll,300);
+                        }
+                    };
+                    poll();
                 }
+            }else{
+                head.appendChild(link);
             }
-            head.appendChild(link);
       },
       /**
        *异步加载所需的文件 
@@ -152,11 +179,11 @@ define('modules/loader',[
                * @param {Object} url
                * @param {Object} done
                */
-              load=function(url, done, error){
-                  if(/\.js(?:\?\S+)?$/.test(url)){
-                      _self.importJS(url,done,error);
+              load=function(url, done){
+                  if(/\.js(?:\?\S+|#\S+)?$/.test(url)){
+                      _self.importJS(url,done);
                   }else{
-                      _self.importCSS(url,done,error);
+                      _self.importCSS(url,done);
                   }
               },
               orderLoad=function(){
