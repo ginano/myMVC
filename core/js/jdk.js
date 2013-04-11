@@ -5,6 +5,16 @@
          *遍历 所有的成员
          */
         hasOwn = Object.prototype.hasOwnProperty, 
+        Config={
+            host:'ali-54473',
+            rootPath:'/myMVC/',
+            /**
+             *设置 
+             */
+            set:function(params){
+                Util.extend(this,params);
+            }
+        },
         Util={
             /**
              * 扩展对象元素
@@ -605,7 +615,8 @@
            "JDK":{
                 "Util":Util,
                 "Class":Class,
-                "Interface":Interface
+                "Interface":Interface,
+                "Config":Config
                }
         },
         true,

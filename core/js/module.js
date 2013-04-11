@@ -207,5 +207,22 @@
         };
     
    window.define=_define;
-        
+   //内置的一些基本模块
+   //提供配置的修改
+   define('modules/config',function(){
+        return JDK.Config;
+   }); 
+   //提供类
+   define('modules/class',function(){
+       return JDK.Class; 
+   });
+   //提供接口
+   define('modules/interface',function(){
+       return JDK.Interface; 
+    });
+   //提供工具
+   define('modules/util',function(){
+        return JDK.Util;
+    });
+
 })(JDK,window);
