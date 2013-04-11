@@ -12,27 +12,30 @@
 		<script  src="../core/js/module.js"></script>
 		<script  src="../modules/js/jquery.js"></script>
 		<script  src="../modules/js/ua.js"></script>
+		<script  src="../modules/js/notify.js"></script>
+		<script  src="../modules/js/webworker.js"></script>
 		<script  src="../modules/js/loader.js"></script>
     </head>
     <body>
         <a id="test" href="#" data='{"a":1}'>test</a>
 		
         <script>
-		define(['modules/loader'],function(Loader){
-        	Loader.asyncLoad([
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/cookie.js',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/json.js',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/json.js',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/css/button.css?v=1',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/date.js',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/mvc.js',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/css/input.css?v=1',
-        		'http://ali-54473.hz.ali.com/myMVC/modules/js/mvc.model.js'
-        		
-        		],function(){
-        		alert('ok');
-        	},false);
-        	
+		define(['modules/webworker'],function(WebWorker){
+        	var test=WebWorker.createInstance('test',function(){
+        		var _this=this;
+        		this.innerAttach('test',function(data){
+        			//Æ½·½
+        			var r=0;
+        			for(var i=0;i<=data;i++){
+        				r+=i*0.001/2*1+2+3;
+        			}
+        			_this.innerNotify('testresult', r);
+        		});
+        	});
+        	test.attach('testresult',function(result){
+        		alert(result);
+        	});
+        	test.notify('test',9999999);
         }).excute();
 
 
