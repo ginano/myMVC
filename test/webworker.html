@@ -23,11 +23,13 @@
 		define(['modules/webworker'],function(WebWorker){
         	var test=WebWorker.createInstance('test',function(){
         		var _this=this;
+        		_this.log({a:1,b:[],c:true,d:new Date()});
         		this.innerAttach('test',function(data){
         			//Æ½·½
         			var r=0;
         			for(var i=0;i<=data;i++){
         				r+=i*0.001/2*1+2+3;
+        				_this.log(r);
         			}
         			_this.innerNotify('testresult', r);
         		});
@@ -35,7 +37,8 @@
         	test.attach('testresult',function(result){
         		alert(result);
         	});
-        	test.notify('test',9999999);
+        	test.notify('test',9);
+        	
         }).excute();
 
 

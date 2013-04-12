@@ -9,9 +9,11 @@ if('function' === typeof define){
     define('modules/webworker',[
             'modules/config',
             'modules/class',
+            'modules/util',
             'modules/notify'
-        ],function(Config,Class,Notify){
-       var  isSupport='function'===typeof window['Worker'] && Config.host==location.host,
+        ],function(Config,Class,Util,Notify){
+       //为了更容易实现，必须要同时支持JSON并且文件不跨域访问（由于目前的webworker文件是固定的，所）才能够用原生的d
+       var  isSupport='function'===typeof window['Worker'] && Config.host==location.host && JSON,
             workerLength=0;
        var WebWorker=new Class('modules/webworker',{
            /**
@@ -36,8 +38,16 @@ if('function' === typeof define){
                //如果原生支持
                if(isSupport){
                    this._worker=new Worker(location.protocol+'//'+Config.host+Config.rootPath+'modules/js/webworker.js');
+                   //增加调试功能
+                   this.MainNotify.attach('loginfo',function(info){
+                       Util.log(info);
+                   });
                    this._worker.onmessage=function(evt){
-                       self.MainNotify.notify(evt.data.eventType,evt.data.data);
+                       var _data=JSON.parse(evt.data);
+                       self.MainNotify.notify(_data.eventType,_data.data);
+                   };
+                   this._worker.onerror=function(evt){
+                       Util.log(JSON.stringify(evt));
                    };
                    this._worker.postMessage(self.factory.toString());
                }else{
@@ -68,15 +78,17 @@ if('function' === typeof define){
            public__attach:function(eventName,fun){
                this.MainNotify.attach(eventName,fun);
            },
-           
+           /**
+            *向线程发送消息 
+            */
            public__notify:function(eventName,data){
                var self=this,
                    args=arguments;
                if(isSupport){
-                   this._worker.postMessage({
+                   this._worker.postMessage(JSON.stringify({
                       eventType:eventName,
                       data:data 
-                   });
+                   }));
                }else{
                    if(self.notifyed){
                        self.ViceNotify.notify(eventName,data);
@@ -87,6 +99,9 @@ if('function' === typeof define){
                        },0);
                    }
                }
+           },
+           log:function(info){
+               Util.log(info);
            }
        });
        return WebWorker;
@@ -110,23 +125,35 @@ if('function' === typeof define){
         //this=window
         //肯定是由系统最先触发来执行初始化工厂
         self.onmessage=function(event){
-            
             factory=Function('return '+event.data+';')();
             self.onmessage=function(event){
-                var from=event.data;
+                var from=JSON.parse(event.data);
                 notify.innerNotify(from.eventType,from.data);
             }
             //初始化执行
             factory.apply(self);
         };
+        /**
+         *向主线程发送消息 
+         */
         self.innerNotify=function(eventName,data){
-          self.postMessage({
+          self.postMessage(JSON.stringify({
              eventType:eventName,
              data:data 
-          });  
+          }));  
         };
+        /**
+         *监听主线程过来的消息 
+         */
         self.innerAttach=function(eventName,fun){
             notify.innerAttach(eventName,fun);
         };
+        /**
+         * 调试信息
+         * @param {Object} info
+         */
+        self.log=function(info){
+            self.innerNotify('loginfo',info);
+        }
     })();
 }
